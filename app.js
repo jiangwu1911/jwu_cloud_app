@@ -7,13 +7,38 @@
 Ext.application({
     name: 'CloudApp',
 
+    requires: [
+        'Ext.menu.Menu',
+        'Ext.form.Panel',
+        'Ext.layout.container.Accordion',
+        'Ext.form.Label',
+        'Ext.data.proxy.Ajax',
+        'Ext.form.FieldSet',
+        'Ext.form.field.Hidden',
+        'Ext.form.field.ComboBox',
+        'Ext.form.field.File',
+        'Ext.grid.plugin.CellEditing',
+        'Ext.ux.grid.FiltersFeature',
+        'Ext.grid.column.Date',
+        'Ext.grid.column.Action',
+        'Ext.chart.series.Pie',
+        'Ext.chart.series.Column',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Category',
+        'Ext.form.CheckboxGroup',
+    ],
+
     extend: 'CloudApp.Application',
+
+    controllers: [
+        'Login'
+    ],
     
     splashscreen: {},
 
     init: function() {
         // Start the mask on the body and get a reference to the mask
-        splashscreen = Ext.getBody().mask('Loading application', 'splashscreen');
+        splashscreen = Ext.getBody().mask('正在加载程序...', 'splashscreen');
 
         // Add a new class to this mask as we want it to look different from the default.
         splashscreen.addCls('splashscreen');
@@ -35,9 +60,14 @@ Ext.application({
             //Fade out the icon and message
             splashscreen.next().fadeOut({
                 duration: 1000,
-                remove:true
+                remove:true,
+                listeners: {
+                    afteranimate: function(el, startTime, eOpts ){
+                        Ext.widget('login');
+                    }
+                }
             });
        });
-       task.delay(4000);
+       task.delay(2000);
     },
 });
