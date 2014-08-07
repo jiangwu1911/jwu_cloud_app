@@ -21,29 +21,39 @@ Ext.define('CloudApp.util.SessionMonitor', {
     closeAction: 'hide',
     modal: true,
     resizable: false,
-    title: 'Session Timeout Warning',
+    title: '会话过期',
     width: 325,
     items: [{
       xtype: 'container',
       frame: true,
-      html: "Your session will automatically expires after 15 minutes of  inactivity. If your session expires, any unsaved data will be lost and  you will be automatically logged out. </br></br>If you want  to continue working, click the 'Continue Working'  button.</br></br>"    
+      html: "如果15分钟没有进行任何操作，你的会话会过期并自动退出，所有未保存的数据将会丢失。</br></br>如果想继续工作，请按'继续'按钮。</br></br>"    
     },{
       xtype: 'label',
       text: ''
     }],
     buttons: [{
-      text: 'Continue Working',
+      text: '继续',
       handler: function() {
         Ext.TaskManager.stop(CloudApp.util.SessionMonitor.countDownTask);
         CloudApp.util.SessionMonitor.window.hide();
         CloudApp.util.SessionMonitor.start();
+
         // 'poke' the server-side to update your session.
+        token = localStorage.getItem('user_token')
         Ext.Ajax.request({
-          url: 'user/poke.action'
+          url: API_URL + '/users/0',
+          method: 'POST',
+          headers: { 'X-Auth-Token': token },
+          params: { action: 'refresh_token' },
+
+          success: function(conn, response, options, eOpts) {
+            var result = CloudApp.util.Util.decodeJSON(conn.responseText);
+            localStorage.setItem('user_token', result.success.token);
+          }
         });
       }
     },{
-      text: 'Logout',
+      text: '退出',
       action: 'logout',
       handler: function() {
         Ext.TaskManager.stop(CloudApp.util.SessionMonitor.countDownTask);
@@ -134,7 +144,7 @@ Ext.define('CloudApp.util.SessionMonitor', {
    * the seconds remaining prior to session expiration.  If the counter expires, you're logged out.
    */
   countDown: function() {
-    this.window.down('label').update('Your session will expire in ' +  this.remaining + ' second' + ((this.remaining == 1) ? '.' : 's.') );
+    this.window.down('label').update('你的会话将会在' +  this.remaining + '秒后过期。');
     
     --this.remaining;
 

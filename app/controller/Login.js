@@ -70,6 +70,7 @@ Ext.define('CloudApp.controller.Login', {
                 success: function(conn, response, options, eOpts) {
                     Ext.get(login.getEl()).unmask();
                     var result = CloudApp.util.Util.decodeJSON(conn.responseText);
+                    localStorage.setItem('user_token', result.success.token);
 
                     if (result.success) {
                         login.close();
@@ -118,9 +119,11 @@ Ext.define('CloudApp.controller.Login', {
     },
     
     onButtonClickLogout: function(button, e, options) {
+        token = localStorage.getItem('user_token')
         Ext.Ajax.request({
             url:  API_URL + '/logout',
             method: 'POST',
+            headers: { 'X-Auth-Token': token },
             success: function(conn, response, options, eOpts) {
                 var result = CloudApp.util.Util.decodeJSON(conn.responseText);
 
