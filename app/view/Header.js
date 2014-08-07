@@ -9,7 +9,7 @@ Ext.define('CloudApp.view.Header', {
     items: [
         {
             xtype: 'label',
-            html: '<div id="titleHeader">Video Store Manager<span style="font-size:12px;"> - Mastering Ext JS</span></div>'
+            html: '<div id="titleHeader">OpenStack云平台</div>'
         },
         {
             xtype: 'tbfill'

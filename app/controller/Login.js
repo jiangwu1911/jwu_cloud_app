@@ -4,7 +4,7 @@ Ext.define('CloudApp.controller.Login', {
     requires: [
         'CloudApp.util.MD5',
         'CloudApp.util.Alert',
-        //'CloudApp.view.MyViewport',
+        'CloudApp.view.MyViewport',
         'CloudApp.util.Util',
         'CloudApp.util.SessionMonitor'
     ],
@@ -72,10 +72,9 @@ Ext.define('CloudApp.controller.Login', {
                     var result = CloudApp.util.Util.decodeJSON(conn.responseText);
 
                     if (result.success) {
-                        CloudApp.util.Alert.msg('Success!', 'User Authenticated.');
-                        /*login.close();
+                        login.close();
                         Ext.create('CloudApp.view.MyViewport');
-                        CloudApp.util.SessionMonitor.start();*/
+                        CloudApp.util.SessionMonitor.start();
 
                     } else {
                         CloudApp.util.Util.showErrorMsg(conn.responseText);

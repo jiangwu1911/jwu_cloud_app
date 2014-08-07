@@ -13,6 +13,7 @@ Ext.application({
         'Ext.menu.Menu',
         'Ext.form.Panel',
         'Ext.layout.container.Accordion',
+        'Ext.layout.container.Border',        
         'Ext.form.Label',
         'Ext.data.proxy.Ajax',
         'Ext.form.FieldSet',
