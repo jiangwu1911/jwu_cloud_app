@@ -4,6 +4,8 @@
     Sencha Cmd when upgrading.
 */
 
+var API_URL = 'http://192.168.206.129:8080'
+
 Ext.application({
     name: 'CloudApp',
 

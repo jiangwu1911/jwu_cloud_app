@@ -57,33 +57,33 @@ Ext.define('CloudApp.controller.Login', {
             pass = formPanel.down('textfield[name=password]').getValue();   
 
         if (formPanel.getForm().isValid()) {
-            pass = Packt.util.MD5.encode(pass); 
+            pass = CloudApp.util.MD5.encode(pass); 
             Ext.get(login.getEl()).mask("Authenticating... Please wait...", 'loading');
 
             Ext.Ajax.request({
-                url: 'http://localhost:8080/login',
-                method: 'POST',
+                url: API_URL + '/login',
+                method: 'post',
                 params: {
                     username: user,
                     password: pass
                 },
                 success: function(conn, response, options, eOpts) {
                     Ext.get(login.getEl()).unmask();
-                    var result = Packt.util.Util.decodeJSON(conn.responseText);
+                    var result = CloudApp.util.Util.decodeJSON(conn.responseText);
 
                     if (result.success) {
-                        Packt.util.Alert.msg('Success!', 'User Authenticated.');
+                        CloudApp.util.Alert.msg('Success!', 'User Authenticated.');
                         /*login.close();
-                        Ext.create('Packt.view.MyViewport');
-                        Packt.util.SessionMonitor.start();*/
+                        Ext.create('CloudApp.view.MyViewport');
+                        CloudApp.util.SessionMonitor.start();*/
 
                     } else {
-                        Packt.util.Util.showErrorMsg(conn.responseText);
+                        CloudApp.util.Util.showErrorMsg(conn.responseText);
                     }
                 },
                 failure: function(conn, response, options, eOpts) {
                     Ext.get(login.getEl()).unmask();
-                    Packt.util.Util.showErrorMsg(conn.responseText);
+                    CloudApp.util.Util.showErrorMsg(conn.responseText);
                 }
             });
         }    
@@ -120,20 +120,20 @@ Ext.define('CloudApp.controller.Login', {
     
     onButtonClickLogout: function(button, e, options) {
         Ext.Ajax.request({
-            url: 'http://localhost:8080/login',
+            url:  API_URL + '/logout',
             method: 'POST',
             success: function(conn, response, options, eOpts) {
-                var result = Packt.util.Util.decodeJSON(conn.responseText);
+                var result = CloudApp.util.Util.decodeJSON(conn.responseText);
 
                 if (result.success) {
                     button.up('mainviewport').destroy();
                     window.location.reload();
                 } else {
-                    Packt.util.Util.showErrorMsg(conn.responseText);
+                    CloudApp.util.Util.showErrorMsg(conn.responseText);
                 }
             },
             failure: function(conn, response, options, eOpts) {
-                Packt.util.Util.showErrorMsg(conn.responseText);
+                CloudApp.util.Util.showErrorMsg(conn.responseText);
             }
         });
     }
