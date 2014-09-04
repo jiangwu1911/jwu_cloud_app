@@ -39,7 +39,7 @@ Ext.define('CloudApp.util.SessionMonitor', {
         CloudApp.util.SessionMonitor.start();
 
         // 'poke' the server-side to update your session.
-        token = localStorage.getItem('user_token')
+        token = sessionStorage.getItem('user_token')
         Ext.Ajax.request({
           url: API_URL + '/users/0',
           method: 'POST',
@@ -48,7 +48,7 @@ Ext.define('CloudApp.util.SessionMonitor', {
 
           success: function(conn, response, options, eOpts) {
             var result = CloudApp.util.Util.decodeJSON(conn.responseText);
-            localStorage.setItem('user_token', result.success.token);
+            sessionStorage.setItem('user_token', result.success.token);
           }
         });
       }

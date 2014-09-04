@@ -34,7 +34,9 @@ Ext.application({
     extend: 'CloudApp.Application',
 
     controllers: [
-        'Login'
+        'Main',
+        'Login',
+        'Menu'
     ],
     
     splashscreen: {},

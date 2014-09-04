@@ -121,7 +121,7 @@
   background-image:url('../icons/folder_user.png') !important;
 }
 
-.menu_groups {
+.menu_depts {
   background-image:url('../icons/group_key.png') !important;
 }
 
@@ -130,5 +130,41 @@
 }
 
 .menu_users {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_hardware {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_hosts {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_storage {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_openstack {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_flavor {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_image {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_vm {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_vdisk {
+  background-image:url('../icons/group_edit.png') !important;
+}
+
+.menu_snapshot {
   background-image:url('../icons/group_edit.png') !important;
 }

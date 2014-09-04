@@ -15,10 +15,6 @@ Ext.define('CloudApp.view.MainPanel', {
             iconCls: 'home',
             title: 'Home',
             layout: 'fit'
-            // items: [{
-            //     xtype: 'uxiframe',
-            //     src: 'http://www.packtpub.com/mastering-ext-javascript/book'
-            // }]
         }
     ]
 });

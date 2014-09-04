@@ -11,3 +11,4 @@
 7. 中文用户名，用户名正确
 8. 检查对话框中按钮图片
 9. logout
+10. 把SessionManager里的maxInactive设置成1, 按继续或退出，看是否正常

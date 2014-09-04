@@ -1,15 +1,24 @@
 Ext.define('CloudApp.view.Viewport', {
     extend: 'Ext.container.Viewport',
     requires:[
-        'Ext.layout.container.Fit',
-        'CloudApp.view.Main'
+        'Ext.tab.Panel',
+        'Ext.layout.container.Border'
     ],
 
     layout: {
-        type: 'fit'
+        type: 'border'
     },
 
     items: [{
-        xtype: 'app-main'
+        region: 'west',
+        xtype: 'panel',
+        title: 'west',
+        width: 150
+    },{
+        region: 'center',
+        xtype: 'tabpanel',
+        items:[{
+            title: 'Center Tab 1'
+        }]
     }]
 });
