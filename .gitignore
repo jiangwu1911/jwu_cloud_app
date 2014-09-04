@@ -1,3 +1,4 @@
 # Extjs folder
 ext/
 build/
+*.swp

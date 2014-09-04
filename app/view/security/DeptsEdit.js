@@ -23,8 +23,8 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
                 afterLabelTextTpl: CloudApp.util.Util.required,
                 anchor: '100%',
                 xtype: 'textfield',
-                allowBlank: false,
-                msgTarget: 'under'
+                msgTarget: 'under',
+                allowBlank: false
             },
             items: [
                 {
@@ -36,7 +36,15 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
                     fieldLabel: '部门名称',
                     name: 'name',
                     maxLength: 45,
-                    minLength: 3
+                    minLength: 1,
+                },
+                {
+                    afterLabelTextTpl: '',
+                    fieldLabel: '说明', 
+                    name: 'desc',
+                    maxLength: 200,
+                    minLength: 0,
+                    allowBlank: true,
                 }
             ]
         },
