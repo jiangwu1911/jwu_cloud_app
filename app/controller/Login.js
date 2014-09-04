@@ -83,8 +83,17 @@ Ext.define('CloudApp.controller.Login', {
                     }
                 },
                 failure: function(conn, response, options, eOpts) {
-                    Ext.get(login.getEl()).unmask();
-                    CloudApp.util.Util.showErrorMsg(conn.responseText);
+                    if (conn.status == 0) {
+                        Ext.Msg.show({
+                            title:'错误',
+                            msg: '无法连接到后台服务器，请通知管理员。',
+                            icon: Ext.Msg.ERROR,
+                            buttons: Ext.Msg.OK,
+                        });
+                    } else {
+                        Ext.get(login.getEl()).unmask();
+                        CloudApp.util.Util.showErrorMsg(conn.responseText);
+                    }
                 }
             });
         }    

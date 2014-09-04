@@ -30,7 +30,8 @@ Ext.define('CloudApp.controller.security.Depts', {
         this.control({
             "deptslist": {
                 viewready: this.onViewReady,
-                selectionchange: this.onSelectionChange
+                selectionchange: this.onSelectionChange,
+                //itemclick: this.onItemClick,
             },
             "deptslist button#add": {
                 click: this.onButtonClickAdd
@@ -55,9 +56,32 @@ Ext.define('CloudApp.controller.security.Depts', {
         });
     },
 
+    onItemClick: function (record, item, index, e, eOpts) {
+        form = this.getDeptsEdit().getForm()
+        if (form.isDirty()) {
+            Ext.Msg.show({
+                title:'提示',
+                msg: '是否保存已修改的数据?',
+                icon: Ext.Msg.INFO,
+                buttons: Ext.Msg.YESNOCANCEL,
+                fn: function (btn) {
+                    switch(btn) {
+                        case 'yes':
+                            save_button = Ext.ComponentQuery.query('deptsedit button#save')[0]
+                            save_button.fireEvent('click', save_button);
+                        case 'no':
+                            break;
+                        case 'cancel':
+                            return;
+                    }
+                }
+            });
+        }
+    },
+
     onSelectionChange: function (sm, records, options) {
         if (records[0]) {
-            this.getDeptsEdit().getForm().loadRecord(records[0]);
+            this.getDeptsEdit().getForm().loadRecord(records[0])
             this.getDeptsEdit().setDisabled(false);
         }
     },
@@ -90,8 +114,13 @@ Ext.define('CloudApp.controller.security.Depts', {
             var values = formPanel.getValues();
             Ext.get(formPanel.getEl()).mask("正在保存部门信息...", "保存");
 
+            url = API_URL + '/depts';
+            if (values.id > 0) {
+                url = url + '/' + values.id;
+            }
+
             Ext.Ajax.request({
-                url: API_URL + '/depts/' + values.id,
+                url: url,
                 headers: { 'X-Auth-Token': sessionStorage.getItem('user_token') },
                 params: {
                     name: values.name,
