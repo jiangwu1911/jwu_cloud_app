@@ -49,6 +49,9 @@ Ext.define('CloudApp.util.SessionMonitor', {
           success: function(conn, response, options, eOpts) {
             var result = CloudApp.util.Util.decodeJSON(conn.responseText);
             sessionStorage.setItem('user_token', result.success.token);
+          },
+          failure: function(conn, response, options, eOpts) {
+            CloudApp.util.Util.sessionTimeout();
           }
         });
       }
@@ -152,5 +155,4 @@ Ext.define('CloudApp.util.SessionMonitor', {
       this.window.down('button[action="logout"]').handler();
     }
   }
- 
 });
