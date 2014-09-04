@@ -7,6 +7,7 @@ Ext.define('CloudApp.model.MenuItem', {
         { name: 'text', type: 'string' },
         { name: 'iconCls', type: 'string' },
         { name: 'id', type: 'int' },
-        { name: 'parent_id', type: 'int' }
+        { name: 'parent_id', type: 'int' },
+        { name: 'className', type: 'string' }
     ]
 });

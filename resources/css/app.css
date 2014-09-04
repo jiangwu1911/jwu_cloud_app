@@ -120,51 +120,39 @@
 .menu_admin {
   background-image:url('../icons/folder_user.png') !important;
 }
-
-.menu_depts {
-  background-image:url('../icons/group_key.png') !important;
+.menu_user {
+  background-image:url('../icons/vcard.png') !important;
 }
 
-.menu_profile {
-  background-image:url('../icons/user_edit.png') !important;
-}
-
-.menu_users {
-  background-image:url('../icons/group_edit.png') !important;
+.menu_dept {
+  background-image:url('../icons/vcard.png') !important;
 }
 
 .menu_hardware {
-  background-image:url('../icons/group_edit.png') !important;
+  background-image:url('../icons/folder_user.png') !important;
 }
-
-.menu_hosts {
-  background-image:url('../icons/group_edit.png') !important;
+.menu_host {
+  background-image:url('../icons/vcard.png') !important;
 }
-
 .menu_storage {
-  background-image:url('../icons/group_edit.png') !important;
+  background-image:url('../icons/vcard.png') !important;
 }
 
 .menu_openstack {
-  background-image:url('../icons/group_edit.png') !important;
+  background-image:url('../icons/folder_user.png') !important;
 }
-
 .menu_flavor {
-  background-image:url('../icons/group_edit.png') !important;
+  background-image:url('../icons/vcard.png') !important;
 }
-
 .menu_image {
-  background-image:url('../icons/group_edit.png') !important;
+  background-image:url('../icons/vcard.png') !important;
 }
-
-.menu_vm {
-  background-image:url('../icons/group_edit.png') !important;
+.menu_server {
+  background-image:url('../icons/vcard.png') !important;
 }
-
 .menu_vdisk {
-  background-image:url('../icons/group_edit.png') !important;
+  background-image:url('../icons/vcard.png') !important;
 }
-
 .menu_snapshot {
-  background-image:url('../icons/group_edit.png') !important;
+  background-image:url('../icons/vcard.png') !important;
 }

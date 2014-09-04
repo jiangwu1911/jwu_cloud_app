@@ -29,14 +29,25 @@ Ext.application({
         'Ext.chart.axis.Numeric',
         'Ext.chart.axis.Category',
         'Ext.form.CheckboxGroup',
+        'CloudApp.util.Util',
     ],
 
     extend: 'CloudApp.Application',
 
+    views: [
+        'Main',
+        'Viewport'
+    ],
+
+    stores: [
+        'security.Depts'
+    ],
+ 
     controllers: [
         'Main',
         'Login',
-        'Menu'
+        'Menu',
+        'security.Depts',
     ],
     
     splashscreen: {},
