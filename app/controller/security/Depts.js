@@ -50,8 +50,11 @@ Ext.define('CloudApp.controller.security.Depts', {
 
     onViewReady: function(component, options) {
         CloudApp.util.Util.addToken(component.getStore());
+        component.getStore().load();
+
         plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
         CloudApp.util.Util.addToken(plist.getStore());
+        plist.getStore().load();
 
         component.getStore().load(function(records, operation, success) {
             if (records.length > 0){
@@ -66,6 +69,7 @@ Ext.define('CloudApp.controller.security.Depts', {
             this.getDeptsEdit().setDisabled(false);
             
             plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
+
             // 下拉框中去掉自己
             store = plist.getStore();
             store.filterBy(function(r) {
@@ -115,12 +119,16 @@ Ext.define('CloudApp.controller.security.Depts', {
                 url = url + '/' + values.id;
             }
 
+            plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
+            parent_id = plist.getValue();
+
             Ext.Ajax.request({
                 url: url,
                 headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
                 params: {
                     name: values.name,
-                    desc: values.desc
+                    desc: values.desc,
+                    parent_id: parent_id
                 },
                 success: function(conn, response, options, eOpts) {
                     Ext.get(formPanel.getEl()).unmask();
