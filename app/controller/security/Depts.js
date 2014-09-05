@@ -49,6 +49,10 @@ Ext.define('CloudApp.controller.security.Depts', {
     },
 
     onViewReady: function(component, options) {
+        CloudApp.util.Util.addToken(component.getStore());
+        plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
+        CloudApp.util.Util.addToken(plist.getStore());
+
         component.getStore().load(function(records, operation, success) {
             if (records.length > 0){
                 component.getSelectionModel().select(0);
@@ -113,7 +117,7 @@ Ext.define('CloudApp.controller.security.Depts', {
 
             Ext.Ajax.request({
                 url: url,
-                headers: { 'X-Auth-Token': sessionStorage.getItem('user_token') },
+                headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
                 params: {
                     name: values.name,
                     desc: values.desc

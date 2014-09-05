@@ -9,7 +9,7 @@ Ext.define('CloudApp.store.security.Depts', {
     proxy: {
         type: 'ajax',
         url: API_URL + '/depts',
-        headers: { 'X-Auth-Token': sessionStorage.getItem('user_token') },
+        headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
         reader: {
             type: 'json',
             root: 'depts'

@@ -70,10 +70,8 @@ Ext.define('CloudApp.controller.Login', {
                 success: function(conn, response, options, eOpts) {
                     Ext.get(login.getEl()).unmask();
                     var result = CloudApp.util.Util.decodeJSON(conn.responseText);
-                    console.log(result.success.token);
-                    sessionStorage.clear();
-                    sessionStorage.setItem('user_token', result.success.token);
-                    sessionStorage.setItem('user_role', result.success.role.name);
+                    Ext.util.Cookies.set('user_token', result.success.token);
+                    Ext.util.Cookies.set('user_role', result.success.role.name);
 
                     if (result.success) {
                         login.close();
@@ -131,7 +129,8 @@ Ext.define('CloudApp.controller.Login', {
     },
     
     onButtonClickLogout: function(button, e, options) {
-        token = sessionStorage.getItem('user_token')
+        token = Ext.util.Cookies.get('user_token');
+        console.log(token);
         Ext.Ajax.request({
             url:  API_URL + '/logout',
             method: 'POST',

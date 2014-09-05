@@ -29,6 +29,7 @@ Ext.application({
         'Ext.chart.axis.Numeric',
         'Ext.chart.axis.Category',
         'Ext.form.CheckboxGroup',
+        'Ext.util.Cookies',
         'CloudApp.util.Util',
     ],
 

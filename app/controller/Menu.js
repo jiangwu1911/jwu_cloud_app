@@ -19,7 +19,7 @@ Ext.define('CloudApp.controller.Menu', {
     ],
 
     onPanelRender: function(abstractcomponent, options) {
-        role = sessionStorage.getItem('user_role');
+        role = Ext.util.Cookies.get('user_role');
         var data = {}
         if (role == '系统管理员') {
             data = { menuitems: 

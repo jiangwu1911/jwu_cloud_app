@@ -35,6 +35,14 @@ Ext.define('CloudApp.util.Util', {
                     Ext.ComponentQuery.query('button#logout')[0].fireEvent('click',Ext.ComponentQuery.query('button#logout')[0]);
                 }
             });
-        }
+        },
+
+        addToken: function(store) {
+            store.addListener({
+                beforeload:function(store, records, options){
+                    store.getProxy().headers = { 'X-Auth-Token': Ext.util.Cookies.get('user_token') };
+                }
+            });
+        },
     }
 });
