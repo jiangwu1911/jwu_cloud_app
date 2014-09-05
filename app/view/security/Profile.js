@@ -62,7 +62,7 @@ Ext.define('CloudApp.view.security.Profile', {
                             displayField: 'name',
                             valueField: 'id',
                             queryMode: 'local',
-                            store: 'security.DeptsForParentList',
+                            store: 'security.Depts',
                             editable: false,
                         },
                     ]

@@ -7,6 +7,7 @@ Ext.define('CloudApp.controller.security.Users', {
 
     views: [
         'security.Users',
+        'security.AllUsersList',
         'security.Profile'
     ],
 
@@ -16,16 +17,16 @@ Ext.define('CloudApp.controller.security.Users', {
 
     refs: [
         {
-            ref: 'usersList',
-            selector: 'userslist'
+            ref: 'allUsersList',
+            selector: 'alluserslist'
         },
     ],
 
     init: function(application) {
         this.control({
-            "userslist": {
+            "users #alluserslist": {
                 render: this.onRender,
-                //select: this.onSelect
+                select: this.onSelect,
             },
             "users button#add": {
                 click: this.onButtonClickAdd
@@ -44,29 +45,29 @@ Ext.define('CloudApp.controller.security.Users', {
             },
         });
 
-        if (!Ext.getStore('depts_for_parent_list')) {
-            Ext.create('CloudApp.store.security.DeptsForParentList');
+        if (!Ext.getStore('depts')) {
+            Ext.create('CloudApp.store.security.Depts');
         }    
     },
 
     onRender: function(component, options) {
+        CloudApp.util.Util.addToken(component.getStore());
         component.getStore().load();
     },
 
-    onSelect: function(component, record, index, eOpts) {
-        console.log(record);
+    onSelect: function(component, record, index, eOpt) {
+        //console.log(component);
     },
 
     onButtonClickAdd: function (button, e, options) {
-
         var win = Ext.create('CloudApp.view.security.Profile');
         win.setTitle('增加新用户');
         win.show();
     },
 
     onButtonClickEdit: function (button, e, options) {
-        var grid = this.getUsersList();
-        console.log(grid.getSelectionModel());
+        var grid = this.getAllUsersList();
+        console.log(grid);
         var record = grid.getSelectionModel().getSelection();
         console.log(record);
 
@@ -79,7 +80,7 @@ Ext.define('CloudApp.controller.security.Users', {
     },
 
     onButtonClickDelete: function (button, e, options) {
-        var grid = this.getUsersList(),
+        var grid = this.getAllUsersList();
         record = grid.getSelectionModel().getSelection(), 
         store = grid.getStore();
 
@@ -131,7 +132,7 @@ Ext.define('CloudApp.controller.security.Users', {
     onButtonClickSave: function(button, e, options) {
         var win = button.up('window'),
         formPanel = win.down('form'),
-        store = this.getUsersList().getStore();
+        store = this.getAllUsersList().getStore();
 
         if (formPanel.getForm().isValid()) {
             url = API_URL + '/users';

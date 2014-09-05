@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.security.Users', {
     alias: 'widget.users',
 
     requires: [
-        'CloudApp.view.security.UsersList'
+        'CloudApp.view.security.AllUsersList'
     ],
 
     layout: {
@@ -12,7 +12,8 @@ Ext.define('CloudApp.view.security.Users', {
 
     items: [
         {
-            xtype: 'userslist'
+            xtype: 'alluserslist',
+            itemId: 'alluserslist',
         }
     ],
     dockedItems: [
@@ -23,19 +24,19 @@ Ext.define('CloudApp.view.security.Users', {
             items: [
                 {
                     xtype: 'button',
-                    text: 'Add',
+                    text: '新建',
                     itemId: 'add',
                     iconCls: 'add'
                 },
                 {
                     xtype: 'button',
-                    text: 'Edit',
+                    text: '编辑',
                     itemId: 'edit',
                     iconCls: 'edit'
                 },
                 {
                     xtype: 'button',
-                    text: 'Delete',
+                    text: '删除',
                     itemId: 'delete',
                     iconCls: 'delete'
                 }

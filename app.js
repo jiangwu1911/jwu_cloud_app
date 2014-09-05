@@ -44,7 +44,7 @@ Ext.application({
     stores: [
         'security.Depts',
         'security.Users',
-        'security.DeptsForParentList',
+        'security.DeptsTree',
     ],
  
     controllers: [

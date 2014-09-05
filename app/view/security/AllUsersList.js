@@ -1,6 +1,6 @@
-Ext.define('CloudApp.view.security.UsersList', {
+Ext.define('CloudApp.view.security.AllUsersList', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.userslist',
+    alias: 'widget.alluserslist',
 
     frame: true,
     store: Ext.create('CloudApp.store.security.Users'),

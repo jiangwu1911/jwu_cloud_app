@@ -7,7 +7,7 @@ Ext.define('CloudApp.view.security.DeptsList', {
 
     rootVisible: false,
     useArrows: true,
-    store: 'security.Depts',
+    store: 'security.DeptsTree',
     tools: [{
         type: 'refresh',
         handler: function() {

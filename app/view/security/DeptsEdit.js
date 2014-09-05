@@ -14,7 +14,7 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
     bodyPadding: 10,
     title: '编辑选中的部门',
 
-    store: 'security.DeptsForParentList',
+    store: 'security.Depts',
 
     items: [
         {
@@ -53,7 +53,7 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
                     xtype: 'combobox',
                     fieldLabel: '所属部门',
                     itemId: 'parent_list',
-                    store: 'security.DeptsForParentList',
+                    store: 'security.Depts',
                     displayField: 'name',
                     valueField: 'id',
                     emptyText: '无',
@@ -65,10 +65,11 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
         },
         {
             xtype: 'userslist',
-            emptyText: '没有员工.',
+            emptyText: '没有员工。',
             title: '员工列表',
             hideGroup: true,
-            flex: 1
+            flex: 1,
+            itemId: 'deptuserslist',
         }
     ],
     dockedItems: [
