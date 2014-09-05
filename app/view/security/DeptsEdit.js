@@ -4,7 +4,7 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
 
     requires: [
         'CloudApp.util.Util',
-        //'CloudApp.view.security.UsersList'
+        'CloudApp.view.security.UsersList'
     ],
 
     layout: {
@@ -59,17 +59,17 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
                     emptyText: '无',
                     allowBlank: true,
                     triggerAction: 'all',
-                    selectOnFocus: true,
+                    editable: false,
                 }
             ]
         },
-        /*{
+        {
             xtype: 'userslist',
             emptyText: '没有员工.',
             title: '员工列表',
             hideGroup: true,
             flex: 1
-        }*/
+        }
     ],
     dockedItems: [
         {

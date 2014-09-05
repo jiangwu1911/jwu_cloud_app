@@ -31,6 +31,7 @@ Ext.application({
         'Ext.form.CheckboxGroup',
         'Ext.util.Cookies',
         'CloudApp.util.Util',
+        'CloudApp.store.security.Users',
     ],
 
     extend: 'CloudApp.Application',
@@ -41,7 +42,9 @@ Ext.application({
     ],
 
     stores: [
-        'security.Depts'
+        'security.Depts',
+        'security.Users',
+        'security.DeptsForParentList',
     ],
  
     controllers: [
@@ -49,6 +52,7 @@ Ext.application({
         'Login',
         'Menu',
         'security.Depts',
+        'security.Users',
     ],
     
     splashscreen: {},

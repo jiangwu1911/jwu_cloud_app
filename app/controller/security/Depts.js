@@ -50,17 +50,16 @@ Ext.define('CloudApp.controller.security.Depts', {
 
     onViewReady: function(component, options) {
         CloudApp.util.Util.addToken(component.getStore());
-        component.getStore().load();
-
+        ulist = this.getDeptsEdit().down('userslist');
+        CloudApp.util.Util.addToken(ulist.getStore());
         plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
         CloudApp.util.Util.addToken(plist.getStore());
-        plist.getStore().load();
 
-        component.getStore().load(function(records, operation, success) {
-            if (records.length > 0){
-                component.getSelectionModel().select(0);
-            }
-        });
+        plist.getStore().load();
+        ulist.getStore().load();
+        component.getStore().load();
+
+        component.getSelectionModel().select(0);
     },
 
     onClickDept: function (panel, record) {
@@ -73,9 +72,9 @@ Ext.define('CloudApp.controller.security.Depts', {
             this.getDeptsEdit().setDisabled(false);
 
             // 下拉框中去掉自己
-            store.filterBy(function(r) {
+            /*store.filterBy(function(r) {
                 return r.id != dept.id;
-            });
+            });*/
 
             // 总部不允许有上级部门
             if (dept.raw.name == '总部') {
@@ -90,6 +89,13 @@ Ext.define('CloudApp.controller.security.Depts', {
             } else {
                 plist.clearValue();
             }
+
+            this.getDeptsEdit().down('userslist').getStore().load({
+                params: {
+                    dept_id: dept.raw.id
+                }
+            });
+
         }
     },
 
