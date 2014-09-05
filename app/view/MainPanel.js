@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.MainPanel', {
     alias: 'widget.mainpanel',
 
     requires: [
-        'Ext.ux.IFrame'
+        'Ext.ux.IFrame',
     ],
 
     activeTab: 0,

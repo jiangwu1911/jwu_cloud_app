@@ -78,6 +78,11 @@ Ext.define('CloudApp.controller.Login', {
                         Ext.create('CloudApp.view.MyViewport');
                         CloudApp.util.SessionMonitor.start();
 
+                        // 有些动作login完马上需要做
+                        var deptsStore = Ext.getStore('security.Depts');
+                        CloudApp.util.Util.addToken(deptsStore);
+                        deptsStore.load();
+
                     } else {
                         CloudApp.util.Util.showErrorMsg(conn.responseText);
                     }

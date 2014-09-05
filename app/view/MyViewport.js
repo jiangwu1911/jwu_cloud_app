@@ -5,7 +5,7 @@ Ext.define('CloudApp.view.MyViewport', {
     requires: [
         'CloudApp.view.Header',
         'CloudApp.view.menu.Accordion',
-        'CloudApp.view.MainPanel'
+        'CloudApp.view.MainPanel',
     ],
 
     layout: {

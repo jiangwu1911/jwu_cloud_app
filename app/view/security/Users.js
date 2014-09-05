@@ -14,7 +14,7 @@ Ext.define('CloudApp.view.security.Users', {
         {
             xtype: 'alluserslist',
             itemId: 'alluserslist',
-        }
+        },
     ],
     dockedItems: [
         {

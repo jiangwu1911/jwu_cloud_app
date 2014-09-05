@@ -32,7 +32,6 @@ Ext.define('CloudApp.controller.security.Depts', {
             'deptslist': {
                 viewready: this.onViewReady,
                 itemclick: this.onClickDept,
-                show: this.onShow,
             },
             'deptslist button#add': {
                 click: this.onButtonClickAdd
@@ -59,10 +58,7 @@ Ext.define('CloudApp.controller.security.Depts', {
         plist.getStore().load();
         ulist.getStore().load();
         component.getStore().load();
-    },
-
-    onShow: function(component, eOpts) {
-        //component.getSelectionModel().select(0);
+        this.onClickDept(0);
     },
 
     onClickDept: function (panel, record) {

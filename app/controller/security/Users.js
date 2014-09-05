@@ -26,7 +26,6 @@ Ext.define('CloudApp.controller.security.Users', {
         this.control({
             "users #alluserslist": {
                 render: this.onRender,
-                select: this.onSelect,
             },
             "users button#add": {
                 click: this.onButtonClickAdd
@@ -53,10 +52,6 @@ Ext.define('CloudApp.controller.security.Users', {
     onRender: function(component, options) {
         CloudApp.util.Util.addToken(component.getStore());
         component.getStore().load();
-    },
-
-    onSelect: function(component, record, index, eOpt) {
-        //console.log(component);
     },
 
     onButtonClickAdd: function (button, e, options) {
