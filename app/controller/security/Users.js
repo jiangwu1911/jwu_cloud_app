@@ -62,11 +62,9 @@ Ext.define('CloudApp.controller.security.Users', {
 
     onButtonClickEdit: function (button, e, options) {
         var grid = this.getAllUsersList();
-        console.log(grid);
         var record = grid.getSelectionModel().getSelection();
-        console.log(record);
 
-        if(record[0]){
+        if(record[0]) {
             var editWindow = Ext.create('CloudApp.view.security.Profile');
             editWindow.down('form').loadRecord(record[0]);
             editWindow.setTitle(record[0].get('name'));
@@ -76,52 +74,34 @@ Ext.define('CloudApp.controller.security.Users', {
 
     onButtonClickDelete: function (button, e, options) {
         var grid = this.getAllUsersList();
-        record = grid.getSelectionModel().getSelection(), 
-        store = grid.getStore();
+        var record = grid.getSelectionModel().getSelection();
+        var store = grid.getStore();
 
-        if (store.getCount() >= 2 && record[0]){
-
+        if (record[0]) {
             Ext.Msg.show({
-                 title:'Delete?',
-                 msg: 'Are you sure you want to delete?',
+                 title:'删除',
+                 msg: '是否确定删除用户"' + record[0].get('name') +'"?',
                  buttons: Ext.Msg.YESNO,
                  icon: Ext.Msg.QUESTION,
                  fn: function (buttonId){
                     if (buttonId == 'yes'){
+                        url = API_URL + '/users' + '/' + record[0].get('id');
                         Ext.Ajax.request({
-                            url: 'php/security/deleteUser.php',
-                            params: {
-                                id: record[0].get('id')
-                            },
+                            url: url,
+                            method: 'DELETE',
+                            headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
                             success: function(conn, response, options, eOpts) {
-
-                                var result = CloudApp.util.Util.decodeJSON(conn.responseText);
-
-                                if (result.success) {
-
-                                    CloudApp.util.Alert.msg('Success!', 'User deleted.');
-                                    store.load();
-                                  
-                                } else {
-                                    CloudApp.util.Util.showErrorMsg(conn.responseText);
-                                }
+                                CloudApp.util.Alert.msg('成功', '成功删除用户。');
+                                store.load();
                             },
                             failure: function(conn, response, options, eOpts) {
-
                                 CloudApp.util.Util.showErrorMsg(conn.responseText);
                             }
                         });
                     }
                  }
             });
-        } else if (store.getCount() == 1) {
-            Ext.Msg.show({
-                title:'Warning',
-                msg: 'You cannot delete all the users from the application.',
-                buttons: Ext.Msg.OK,
-                icon: Ext.Msg.WARNING
-            });
-        }
+        } 
     },
 
     onButtonClickSave: function(button, e, options) {
@@ -132,12 +112,16 @@ Ext.define('CloudApp.controller.security.Users', {
         if (formPanel.getForm().isValid()) {
             url = API_URL + '/users';
             var values = formPanel.getValues();
+            if (values.id > 0) {
+                url = url + '/' + values.id;
+            }
            
             Ext.Ajax.request({
                 url: url,
                 headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
                 params: {
-                    username: values.username,
+                    id: values.id,
+                    username: values.name,
                     email: values.email,
                     password:  CloudApp.util.MD5.encode(values.password),
                     dept_id: values.dept_id

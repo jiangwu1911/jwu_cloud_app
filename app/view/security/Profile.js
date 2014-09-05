@@ -37,7 +37,7 @@ Ext.define('CloudApp.view.security.Profile', {
                         {
                             xtype: 'hiddenfield',
                             fieldLabel: 'Label',
-                            name: 'id'
+                            name: 'id',
                         },
                         {
                             xtype: 'hiddenfield',   //缺省密码abc123
@@ -48,11 +48,13 @@ Ext.define('CloudApp.view.security.Profile', {
                         {
                             fieldLabel: '姓名',
                             maxLength: 100,
-                            name: 'username'
+                            name: 'name'
                         },
                         {
                             fieldLabel: '电子邮件',
                             maxLength: 100,
+                            allowBlank: true,
+                            afterLabelTextTpl: '',
                             name: 'email'
                         },
                         {

@@ -104,7 +104,40 @@ Ext.define('CloudApp.controller.security.Depts', {
     },
 
     onButtonClickDelete: function (button, e, options) {
-        alert("delete");
+        var record = this.getDeptsList().getSelectionModel().getSelection();
+        console.log(record);
+        var store = this.getDeptsList().getStore();
+        var form = this.getDeptsEdit();
+
+        if (record[0]) {
+            Ext.Msg.show({
+                 title:'删除',
+                 msg: '是否确定删除部门"' + record[0].get('text') + '"?',
+                 buttons: Ext.Msg.YESNO,
+                 icon: Ext.Msg.QUESTION,
+                 fn: function (buttonId){
+                    if (buttonId == 'yes'){
+                        url = API_URL + '/depts' + '/' + record[0].get('id');                        
+                        Ext.Ajax.request({
+                            url: url,
+                            method: 'DELETE',
+                            headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                            success: function(conn, response, options, eOpts) {
+                                CloudApp.util.Alert.msg('成功', '成功删除部门。');
+                                store.load();
+                                var plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
+                                plist.getStore().load();
+                                form.getForm().reset();
+                                form.down('#deptuserslist').getStore().removeAll();
+                            },
+                            failure:  function(conn, response, options, eOpts) {
+                                CloudApp.util.Util.showErrorMsg(conn.responseText);
+                            }
+                        });
+                    }
+                }
+            });
+        }
     },
 
     onButtonClickSave: function (button, e, options) {
@@ -135,6 +168,9 @@ Ext.define('CloudApp.controller.security.Depts', {
                     Ext.get(formPanel.getEl()).unmask();
                     CloudApp.util.Alert.msg('成功', '部门信息已保存。');
                     store.load();
+                    var plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
+                    plist.getStore().load();
+
                 },
                 failure: function(conn, response, options, eOpts) {
                     Ext.get(formPanel.getEl()).unmask();
@@ -144,7 +180,13 @@ Ext.define('CloudApp.controller.security.Depts', {
         }
     },
 
+    resetForm: function(){
+        var form = this.getDeptsEdit();
+        form.down('#deptuserslist').getStore().removeAll();
+        form.getForm().reset();
+    },
+
     onButtonClickCancel: function(button, e, options) {
-        alert("cancel");
+        this.resetForm();
     },
 });
