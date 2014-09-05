@@ -32,19 +32,28 @@ Ext.application({
         'Ext.util.Cookies',
         'CloudApp.util.Util',
         'CloudApp.store.security.Users',
+        'CloudApp.store.cloud.Flavors',
+        'CloudApp.store.cloud.Images',
+        'CloudApp.store.cloud.Servers',
     ],
 
     extend: 'CloudApp.Application',
 
     views: [
         'Main',
-        'Viewport'
+        'Viewport',
+        'cloud.Flavors',
+        'cloud.Images',
+        'cloud.Servers',
     ],
 
     stores: [
         'security.Depts',
         'security.Users',
         'security.DeptsTree',
+        'cloud.Flavors',
+        'cloud.Images',
+        'cloud.Servers',
     ],
  
     controllers: [
@@ -53,6 +62,9 @@ Ext.application({
         'Menu',
         'security.Depts',
         'security.Users',
+        'cloud.Flavors',
+        'cloud.Images',
+        'cloud.Servers',
     ],
     
     splashscreen: {},
