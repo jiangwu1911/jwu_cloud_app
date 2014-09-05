@@ -31,7 +31,7 @@ Ext.define('CloudApp.controller.security.Depts', {
         this.control({
             'deptslist': {
                 viewready: this.onViewReady,
-                selectionchange: this.onSelectionChange,
+                itemclick: this.onClickDept,
             },
             'deptslist button#add': {
                 click: this.onButtonClickAdd
@@ -63,29 +63,30 @@ Ext.define('CloudApp.controller.security.Depts', {
         });
     },
 
-    onSelectionChange: function (sm, records, options) {
-        if (records[0]) {
-            this.getDeptsEdit().getForm().loadRecord(records[0])
+    onClickDept: function (panel, record) {
+        if (record) {
+            var plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
+            var store = plist.getStore();
+            var dept = store.findRecord('id', record.raw.id);
+
+            this.getDeptsEdit().getForm().loadRecord(dept)
             this.getDeptsEdit().setDisabled(false);
-            
-            plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
 
             // 下拉框中去掉自己
-            store = plist.getStore();
             store.filterBy(function(r) {
-                return r.id != records[0].id;
+                return r.id != dept.id;
             });
 
             // 总部不允许有上级部门
-            if (records[0].raw.name == '总部') {
+            if (dept.raw.name == '总部') {
                 plist.disable();
             } else {
                 plist.enable();
             }
 
             // 显示正确的上级部门
-            if (plist.findRecord('id', records[0].data.parent_id)) {
-                plist.select(plist.findRecord('id', records[0].data.parent_id));
+            if (plist.findRecord('id', dept.raw.parent_id)) {
+                plist.select(plist.findRecord('id', dept.raw.parent_id));
             } else {
                 plist.clearValue();
             }
