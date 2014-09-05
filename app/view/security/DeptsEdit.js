@@ -14,6 +14,8 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
     bodyPadding: 10,
     title: '编辑选中的部门',
 
+    store: 'security.DeptsForParentList',
+
     items: [
         {
             xtype: 'fieldset',
@@ -45,6 +47,19 @@ Ext.define('CloudApp.view.security.DeptsEdit', {
                     maxLength: 200,
                     minLength: 0,
                     allowBlank: true,
+                },
+                {
+                    afterLabelTextTpl: '',
+                    xtype: 'combobox',
+                    fieldLabel: '所属部门',
+                    itemId: 'parent_list',
+                    store: 'security.DeptsForParentList',
+                    displayField: 'name',
+                    valueField: 'id',
+                    emptyText: '无',
+                    allowBlank: true,
+                    triggerAction: 'all',
+                    selectOnFocus: true,
                 }
             ]
         },

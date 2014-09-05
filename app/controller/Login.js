@@ -70,6 +70,8 @@ Ext.define('CloudApp.controller.Login', {
                 success: function(conn, response, options, eOpts) {
                     Ext.get(login.getEl()).unmask();
                     var result = CloudApp.util.Util.decodeJSON(conn.responseText);
+                    console.log(result.success.token);
+                    sessionStorage.clear();
                     sessionStorage.setItem('user_token', result.success.token);
                     sessionStorage.setItem('user_role', result.success.role.name);
 

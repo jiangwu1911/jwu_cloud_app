@@ -12,7 +12,8 @@ Ext.define('CloudApp.controller.security.Depts', {
     ],
 
     stores: [
-        'security.Depts'
+        'security.Depts',
+        'security.DeptsForParentList',
     ],
 
     refs: [
@@ -28,21 +29,20 @@ Ext.define('CloudApp.controller.security.Depts', {
 
     init: function(application) {
         this.control({
-            "deptslist": {
+            'deptslist': {
                 viewready: this.onViewReady,
                 selectionchange: this.onSelectionChange,
-                //itemclick: this.onItemClick,
             },
-            "deptslist button#add": {
+            'deptslist button#add': {
                 click: this.onButtonClickAdd
             },
-            "deptslist button#delete": {
+            'deptslist button#delete': {
                 click: this.onButtonClickDelete
             },
-            "deptsedit button#save": {
+            'deptsedit button#save': {
                 click: this.onButtonClickSave
             },
-            "deptsedit button#cancel": {
+            'deptsedit button#cancel': {
                 click: this.onButtonClickCancel
             }
         });
@@ -56,33 +56,31 @@ Ext.define('CloudApp.controller.security.Depts', {
         });
     },
 
-    onItemClick: function (record, item, index, e, eOpts) {
-        form = this.getDeptsEdit().getForm()
-        if (form.isDirty()) {
-            Ext.Msg.show({
-                title:'提示',
-                msg: '是否保存已修改的数据?',
-                icon: Ext.Msg.INFO,
-                buttons: Ext.Msg.YESNOCANCEL,
-                fn: function (btn) {
-                    switch(btn) {
-                        case 'yes':
-                            save_button = Ext.ComponentQuery.query('deptsedit button#save')[0]
-                            save_button.fireEvent('click', save_button);
-                        case 'no':
-                            break;
-                        case 'cancel':
-                            return;
-                    }
-                }
-            });
-        }
-    },
-
     onSelectionChange: function (sm, records, options) {
         if (records[0]) {
             this.getDeptsEdit().getForm().loadRecord(records[0])
             this.getDeptsEdit().setDisabled(false);
+            
+            plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
+            // 下拉框中去掉自己
+            store = plist.getStore();
+            store.filterBy(function(r) {
+                return r.id != records[0].id;
+            });
+
+            // 总部不允许有上级部门
+            if (records[0].raw.name == '总部') {
+                plist.disable();
+            } else {
+                plist.enable();
+            }
+
+            // 显示正确的上级部门
+            if (plist.findRecord('id', records[0].data.parent_id)) {
+                plist.select(plist.findRecord('id', records[0].data.parent_id));
+            } else {
+                plist.clearValue();
+            }
         }
     },
 
@@ -98,12 +96,6 @@ Ext.define('CloudApp.controller.security.Depts', {
 
     onButtonClickDelete: function (button, e, options) {
         alert("delete");
-    },
-
-    onTreeLoad: function (component, node, records, successful, options) {
-        node.cascadeBy(function(n){
-            n.set('text', translations[n.get('text')]);
-        });
     },
 
     onButtonClickSave: function (button, e, options) {
