@@ -24,22 +24,28 @@ Ext.define('CloudApp.view.cloud.Servers', {
             items: [
                 {
                     xtype: 'button',
-                    text: '新建',
+                    text: '创建',
                     itemId: 'add',
                     iconCls: 'add'
-                },
-                {
-                    xtype: 'button',
-                    text: '编辑',
-                    itemId: 'edit',
-                    iconCls: 'edit'
                 },
                 {
                     xtype: 'button',
                     text: '删除',
                     itemId: 'delete',
                     iconCls: 'delete'
-                }
+                },
+                {
+                    xtype: 'button',
+                    text: '停止',
+                    itemId: 'start_stop',
+                    iconCls: 'stop'
+                },
+                {
+                    xtype: 'button',
+                    text: '暂停',
+                    itemId: 'suspend_resume',
+                    iconCls: 'suspend'
+                },
             ]
         }
     ]

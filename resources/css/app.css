@@ -117,6 +117,18 @@
   background-image:url('../icons/house.png') !important;
 }
 
+.start {
+  background-image:url('../icons/control_play.png') !important;
+}
+
+.stop {
+  background-image:url('../icons/control_stop.png') !important;
+}
+
+.suspend {
+  background-image:url('../icons/control_pause.png') !important;
+}
+
 .menu_admin {
   background-image:url('../icons/folder_user.png') !important;
 }

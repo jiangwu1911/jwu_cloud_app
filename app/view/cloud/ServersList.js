@@ -40,9 +40,14 @@ Ext.define('CloudApp.view.cloud.ServersList', {
             }  
         },
         {
-            width: 80,
+            width: 100,
             dataIndex: 'state',
             text: '状态'
+        },
+        {
+            width: 100,
+            dataIndex: 'task_state',
+            text: '任务'
         },
     ]
 });
