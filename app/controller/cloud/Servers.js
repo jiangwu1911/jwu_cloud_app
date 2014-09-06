@@ -24,9 +24,11 @@ Ext.define('CloudApp.controller.cloud.Servers', {
 
     init: function(application) {
         this.control({
+            "servers": {
+                activate: this.onActivate,
+            }, 
             "servers #serverslist": {
                 render: this.onRender,
-                activate: this.onActivate,
             },
             "servers button#add": {
                 click: this.onButtonClickAdd
@@ -55,13 +57,13 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         var flavorsStore = Ext.getStore('cloud.Flavors');
         CloudApp.util.Util.addToken(flavorsStore);
         flavorsStore.load();
-
-        CloudApp.util.Util.addToken(component.getStore());
-        component.getStore().load();
     },
 
     onActivate: function(component, eOpts) {
-        component.getStore().load();
+        //每次显示时刷新，以便及时得到server的状态
+        store = component.down('#serverslist').getStore();
+        CloudApp.util.Util.addToken(store);
+        store.load();
     },
 
     onButtonClickAdd: function (button, e, options) {
@@ -74,6 +76,36 @@ Ext.define('CloudApp.controller.cloud.Servers', {
     },
 
     onButtonClickDelete: function (button, e, options) {
+        var grid = this.getServersList();
+        var record = grid.getSelectionModel().getSelection();
+        store = grid.getStore();
+
+        if (record[0]) {
+            data = grid.getStore().getById(record[0].get('id'));
+            Ext.Msg.show({
+                 title:'删除',
+                 msg: '是否确定删除云主机"' + data.get('name') +'"?',
+                 buttons: Ext.Msg.YESNO,
+                 icon: Ext.Msg.QUESTION,
+                 fn: function (buttonId){
+                    if (buttonId == 'yes'){
+                        url = API_URL + '/servers' + '/' + data.get('id');
+                        Ext.Ajax.request({
+                            url: url,
+                            method: 'DELETE',
+                            headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                            success: function(conn, response, options, eOpts) {
+                                CloudApp.util.Alert.msg('成功', '正在执行删除云主机操作。');
+                                store.load();
+                            },
+                            failure: function(conn, response, options, eOpts) {
+                                CloudApp.util.Util.showErrorMsg(conn.responseText);
+                            }
+                        });
+                    }
+                 }
+            });
+        }
     },
 
     onButtonClickSave: function(button, e, options) {
@@ -95,7 +127,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                     flavor_name: values.flavor,
                 },
                 success:  function(conn, response, options, eOpts) {
-                    CloudApp.util.Alert.msg('成功', '云主机正在创建。');
+                    CloudApp.util.Alert.msg('成功', '正在创建云主机。');
                     store.load();
                     win.close();
                 },

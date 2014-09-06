@@ -105,7 +105,6 @@ Ext.define('CloudApp.controller.security.Depts', {
 
     onButtonClickDelete: function (button, e, options) {
         var record = this.getDeptsList().getSelectionModel().getSelection();
-        console.log(record);
         var store = this.getDeptsList().getStore();
         var form = this.getDeptsEdit();
 

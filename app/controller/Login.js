@@ -139,7 +139,6 @@ Ext.define('CloudApp.controller.Login', {
     
     onButtonClickLogout: function(button, e, options) {
         token = Ext.util.Cookies.get('user_token');
-        console.log(token);
         Ext.Ajax.request({
             url:  API_URL + '/logout',
             method: 'POST',

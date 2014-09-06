@@ -17,7 +17,6 @@ Ext.define('CloudApp.view.cloud.ServersList', {
             dataIndex: 'sysinfo',
             text: '配置',
             renderer: function(value, meta, record) {
-                console.log(record);
                 value = '虚拟内核: ' + record.raw.vcpus + ', '
                       + '内存: ' +  record.raw.ram + 'MB, <br> '
                       + '根硬盘: ' + record.raw.disk + 'GB, '
