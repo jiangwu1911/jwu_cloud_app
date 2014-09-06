@@ -31,7 +31,7 @@ Ext.define('CloudApp.view.Login', {
                     name: 'user',
                     fieldLabel: '用户名',
                     maxLength: 25,
-                    value: '熊大'
+                    value: 'admin'
                 },
                 {
                     inputType: 'password',
@@ -40,7 +40,7 @@ Ext.define('CloudApp.view.Login', {
                     enableKeyEvents: true,
                     id: 'password',
                     maxLength: 15,
-                    value: 'abc123',
+                    value: 'admin',
                     msgTarget: 'side'
                 }
             ],

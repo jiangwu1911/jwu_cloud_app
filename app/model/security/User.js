@@ -6,6 +6,7 @@ Ext.define('CloudApp.model.security.User', {
     fields: [
         { name: 'id' },
         { name: 'name' },
+        { name: 'password' },
         { name: 'email' },
         { name: 'dept_id' }
     ]

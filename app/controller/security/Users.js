@@ -26,6 +26,7 @@ Ext.define('CloudApp.controller.security.Users', {
         this.control({
             "users #alluserslist": {
                 render: this.onRender,
+                itemdblclick: this.onButtonClickEdit
             },
             "users button#add": {
                 click: this.onButtonClickAdd
@@ -67,6 +68,10 @@ Ext.define('CloudApp.controller.security.Users', {
         if(record[0]) {
             var editWindow = Ext.create('CloudApp.view.security.Profile');
             editWindow.down('form').loadRecord(record[0]);
+
+            var field = editWindow.down('#password_again');
+            field.setValue(record[0].get('password'));
+
             editWindow.setTitle(record[0].get('name'));
             editWindow.show();
         }
@@ -112,9 +117,23 @@ Ext.define('CloudApp.controller.security.Users', {
         if (formPanel.getForm().isValid()) {
             url = API_URL + '/users';
             var values = formPanel.getValues();
-            if (values.id > 0) {
-                url = url + '/' + values.id;
+
+            if (values.password != values.password_again) {
+                Ext.Msg.show({ title:'错误',
+                               msg: '两次输入的密码不一致。',
+                               icon: Ext.Msg.ERROR,
+                               buttons: Ext.Msg.OK });
+                return; 
             }
+
+            record = formPanel.getRecord();
+            var encrypted_password = values.password;
+            if (record.raw.password != encrypted_password) {
+                // 用户修改过密码
+                encrypted_password = CloudApp.util.MD5.encode(values.password);
+            }
+
+            url = url + '/' + values.id;
            
             Ext.Ajax.request({
                 url: url,
@@ -123,7 +142,7 @@ Ext.define('CloudApp.controller.security.Users', {
                     id: values.id,
                     username: values.name,
                     email: values.email,
-                    password:  CloudApp.util.MD5.encode(values.password),
+                    password: encrypted_password,
                     dept_id: values.dept_id
                 },
                 success:  function(conn, response, options, eOpts) {

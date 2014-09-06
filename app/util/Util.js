@@ -16,7 +16,7 @@ Ext.define('CloudApp.util.Util', {
         showErrorMsg: function (text) {
             ret = this.decodeJSON(text)
             Ext.Msg.show({
-                title:'Error!',
+                title:'错误',
                 msg: ret.error.message,
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
