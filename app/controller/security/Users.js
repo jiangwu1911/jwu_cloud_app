@@ -66,13 +66,20 @@ Ext.define('CloudApp.controller.security.Users', {
         var record = grid.getSelectionModel().getSelection();
 
         if(record[0]) {
+            // record[0]里的数据是未更新的数据，可能是extjs的bug
+            // 只好从store里重新读取一遍            
+            data = grid.getStore().getById(record[0].get('id'));
+
+            console.log(record[0]);
+            console.log(data);
+
             var editWindow = Ext.create('CloudApp.view.security.Profile');
-            editWindow.down('form').loadRecord(record[0]);
+            editWindow.down('form').loadRecord(data);
 
             var field = editWindow.down('#password_again');
-            field.setValue(record[0].get('password'));
+            field.setValue(data.get('password'));
 
-            editWindow.setTitle(record[0].get('name'));
+            editWindow.setTitle(data.get('name'));
             editWindow.show();
         }
     },
@@ -80,17 +87,18 @@ Ext.define('CloudApp.controller.security.Users', {
     onButtonClickDelete: function (button, e, options) {
         var grid = this.getAllUsersList();
         var record = grid.getSelectionModel().getSelection();
-        var store = grid.getStore();
+        store = grid.getStore();
 
         if (record[0]) {
+            data = grid.getStore().getById(record[0].get('id'));
             Ext.Msg.show({
                  title:'删除',
-                 msg: '是否确定删除用户"' + record[0].get('name') +'"?',
+                 msg: '是否确定删除用户"' + data.get('name') +'"?',
                  buttons: Ext.Msg.YESNO,
                  icon: Ext.Msg.QUESTION,
                  fn: function (buttonId){
                     if (buttonId == 'yes'){
-                        url = API_URL + '/users' + '/' + record[0].get('id');
+                        url = API_URL + '/users' + '/' + data.get('id');
                         Ext.Ajax.request({
                             url: url,
                             method: 'DELETE',
@@ -143,7 +151,8 @@ Ext.define('CloudApp.controller.security.Users', {
                     username: values.name,
                     email: values.email,
                     password: encrypted_password,
-                    dept_id: values.dept_id
+                    dept_id: values.dept_id,
+                    role_id: values.role_id,
                 },
                 success:  function(conn, response, options, eOpts) {
                     CloudApp.util.Alert.msg('成功', '用户已保存。');

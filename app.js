@@ -50,6 +50,7 @@ Ext.application({
     stores: [
         'security.Depts',
         'security.Users',
+        'security.Roles',
         'security.DeptsTree',
         'cloud.Flavors',
         'cloud.Images',

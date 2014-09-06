@@ -110,14 +110,18 @@ Ext.define('CloudApp.controller.security.Depts', {
         var form = this.getDeptsEdit();
 
         if (record[0]) {
+            // record[0]里的数据是未更新的数据，可能是extjs的bug
+            // 只好从store里重新读取一遍
+            data = store.getById(record[0].get('id'));
+
             Ext.Msg.show({
                  title:'删除',
-                 msg: '是否确定删除部门"' + record[0].get('text') + '"?',
+                 msg: '是否确定删除部门"' + data.get('text') + '"?',
                  buttons: Ext.Msg.YESNO,
                  icon: Ext.Msg.QUESTION,
                  fn: function (buttonId){
                     if (buttonId == 'yes'){
-                        url = API_URL + '/depts' + '/' + record[0].get('id');                        
+                        url = API_URL + '/depts' + '/' + data.get('id');                        
                         Ext.Ajax.request({
                             url: url,
                             method: 'DELETE',

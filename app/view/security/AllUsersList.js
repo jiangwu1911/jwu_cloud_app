@@ -26,6 +26,11 @@ Ext.define('CloudApp.view.security.AllUsersList', {
                 var dept = deptsStore.findRecord('id', value);
                 return dept != null ? dept.get('name') : value;
             }
-        }
+        },
+        {
+            width: 150,
+            dataIndex: 'role_name',
+            text: '角色权限'
+        },
     ]
 });

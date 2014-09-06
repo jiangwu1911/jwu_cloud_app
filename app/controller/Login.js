@@ -83,6 +83,10 @@ Ext.define('CloudApp.controller.Login', {
                         CloudApp.util.Util.addToken(deptsStore);
                         deptsStore.load();
 
+                        var rolesStore = Ext.getStore('security.Roles');
+                        CloudApp.util.Util.addToken(rolesStore);
+                        rolesStore.load();
+
                     } else {
                         CloudApp.util.Util.showErrorMsg(conn.responseText);
                     }

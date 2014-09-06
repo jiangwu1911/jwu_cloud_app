@@ -74,6 +74,16 @@ Ext.define('CloudApp.view.security.Profile', {
                             store: 'security.Depts',
                             editable: false,
                         },
+                        {
+                            xtype: 'combobox',
+                            fieldLabel: '角色权限',
+                            name: 'role_id',
+                            displayField: 'name',
+                            valueField: 'id',
+                            queryMode: 'local',
+                            store: 'security.Roles',
+                            editable: false,
+                        },
                     ]
                 },
             ]

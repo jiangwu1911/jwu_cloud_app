@@ -8,6 +8,8 @@ Ext.define('CloudApp.model.security.User', {
         { name: 'name' },
         { name: 'password' },
         { name: 'email' },
-        { name: 'dept_id' }
+        { name: 'dept_id' },
+        { name: 'role_id' },
+        { name: 'role_name' },
     ]
 });
