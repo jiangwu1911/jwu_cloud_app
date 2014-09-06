@@ -129,6 +129,10 @@
   background-image:url('../icons/control_pause.png') !important;
 }
 
+.console {
+  background-image:url('../icons/console.png') !important;
+}
+
 .menu_admin {
   background-image:url('../icons/folder_user.png') !important;
 }

@@ -27,14 +27,13 @@ Ext.define('CloudApp.controller.Menu', {
                      {id:2, text:'部门', iconCls:'menu_dept', parent_id:1, className:'depts'},
                      {id:3, text:'用户', iconCls:'menu_user', parent_id:1, className:'users'},
                      {id:4, text:'硬件资源管理', iconCls:'menu_hardware', parent_id:null, className:null},
-                     {id:5, text:'服务器', iconCls:'menu_host', parent_id:4, className:'hosts'},
-                     {id:6, text:'存储', iconCls:'menu_storage', parent_id:4, className:'storage'}, 
+                     {id:5, text:'服务器', iconCls:'menu_host', parent_id:4, className:null},
                      {id:7, text:'云平台管理', iconCls:'menu_openstack', parent_id:null, className:null},
                      {id:8, text:'云主机类型', iconCls:'menu_flavor', parent_id:7, className:'flavors'},
                      {id:9, text:'镜像', iconCls:'menu_image', parent_id:7, className:'images'},
                      {id:10, text:'云主机', iconCls:'menu_server', parent_id:7, className:'servers'},
-                     {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:'disks'},
-                     {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:'snapshots'}] };
+                     {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:null},
+                     {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:null}] };
 
         } else if (role == '部门管理员') {
             data = { menuitems:
@@ -45,8 +44,8 @@ Ext.define('CloudApp.controller.Menu', {
                      {id:8, text:'云主机类型', iconCls:'menu_flavor', parent_id:7, className:'flavors'},
                      {id:9, text:'镜像', iconCls:'menu_image', parent_id:7, className:'images'},
                      {id:10, text:'云主机', iconCls:'menu_server', parent_id:7, className:'servers'},
-                     {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:'disks'},
-                     {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:'snapshots'}] };
+                     {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:null},
+                     {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:null}] };
 
         } else {
             data = { menuitems:
@@ -54,8 +53,8 @@ Ext.define('CloudApp.controller.Menu', {
                      {id:8, text:'云主机类型', iconCls:'menu_flavor', parent_id:7, className:'flavors'},
                      {id:9, text:'镜像', iconCls:'menu_image', parent_id:7, className:'images'},
                      {id:10, text:'云主机', iconCls:'menu_server', parent_id:7, className:'servers'},
-                     {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:'disks'},
-                     {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:'snapshots'}] };
+                     {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:null},
+                     {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:null}] };
         }
 
         var memProxy = new Ext.data.proxy.Memory({
@@ -94,7 +93,7 @@ Ext.define('CloudApp.controller.Menu', {
     }, 
 
     onTreepanelSelect: function(selModel, record, index, options) {
-        var mainPanel = Ext.ComponentQuery.query('mainpanel')[0]
+        var mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
         var newTab = mainPanel.items.findBy(
             function(tab) {
                 return tab.title === record.get('text');

@@ -9,6 +9,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         'cloud.Servers',
         'cloud.ServersList',
         'cloud.ServerCreate',
+        'cloud.Console',
     ],
 
     stores: [
@@ -42,6 +43,9 @@ Ext.define('CloudApp.controller.cloud.Servers', {
             },
             "servers button#suspend_resume": {
                 click: this.onButtonClickSuspendResume
+            },
+            "servers button#console": {
+                click: this.onButtonClickConsole
             },
             "servercreate button#save": {
                 click: this.onButtonClickSave
@@ -117,8 +121,18 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         var state = record.get('state');
         var btn1 = Ext.ComponentQuery.query('servers button#start_stop')[0];
         var btn2 = Ext.ComponentQuery.query('servers button#suspend_resume')[0];
+        var btn3 = Ext.ComponentQuery.query('servers button#console')[0];
 
         switch (state) {
+            case 'building':
+                btn1.setIconCls('stop');
+                btn1.setText('停止');
+                btn1.disable();
+                btn2.setIconCls('suspend');
+                btn2.setText('暂停');
+                btn2.disable();
+                btn3.disable();
+                break;
             case 'active':
                 btn1.setIconCls('stop');
                 btn1.setText('停止');
@@ -126,6 +140,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                 btn2.setIconCls('suspend');
                 btn2.setText('暂停');
                 btn2.enable();
+                btn3.enable();
                 break;
             case 'stopped': 
                 btn1.setIconCls('start');
@@ -134,6 +149,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                 btn2.setIconCls('suspend');
                 btn2.setText('暂停');
                 btn2.disable();
+                btn3.disable();
                 break;
             case 'suspended':
                 btn1.setIconCls('stop');
@@ -142,6 +158,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                 btn2.setIconCls('start');
                 btn2.setText('恢复');
                 btn2.enable();
+                btn3.disable();
                 break;
         }
     },
@@ -269,6 +286,55 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                         });
                     }
                  }
+            });
+        }
+    },
+
+    onButtonClickConsole: function(button, e, options) {
+        var grid = this.getServersList();
+        var record = grid.getSelectionModel().getSelection();
+        store = grid.getStore();
+
+        if (record[0]) {
+            data = grid.getStore().getById(record[0].get('id'));
+            url = API_URL + '/servers' + '/' + data.get('id');
+
+            Ext.Ajax.request({
+                url: url,
+                method: 'POST',
+                headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                params: {
+                    action: 'get_console',
+                    console_type: 'novnc'
+                },
+                success: function(conn, response, options, eOpts) {
+                    ret = CloudApp.util.Util.decodeJSON(conn.responseText);
+                    console.log(ret);
+                    console_url = ret.console.url; 
+
+                    if (console_url) {
+                        var mainPanel = Ext.ComponentQuery.query('mainpanel')[0];
+                        var newTab = mainPanel.items.findBy(
+                            function(tab) {
+                                return tab.title === data.get('name');
+                            });
+
+                        if (!newTab) {
+                            newTab = mainPanel.add({
+                                xtype: 'console',
+                                closable: true,
+                                iconCls: 'console',
+                                title: data.get('name'),
+                                html: "<iframe src='" + console_url + 
+                                        "' scrolling='yes' frameborder=0 width=100% height=100%></iframe>"
+                            });
+                        }
+                        mainPanel.setActiveTab(newTab);
+                    }
+                },
+                failure: function(conn, response, options, eOpts) {
+                    CloudApp.util.Util.showErrorMsg(conn.responseText);
+                }
             });
         }
     },

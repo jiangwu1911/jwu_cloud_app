@@ -14,6 +14,7 @@ Ext.define('CloudApp.model.cloud.Server', {
         { name: 'ephemeral' },
         { name: 'swap' },
         { name: 'ip' },
+        { name: 'console_url' },
         { name: 'created_at' },
     ]
 });

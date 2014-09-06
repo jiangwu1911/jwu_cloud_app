@@ -46,6 +46,12 @@ Ext.define('CloudApp.view.cloud.Servers', {
                     itemId: 'suspend_resume',
                     iconCls: 'suspend'
                 },
+                {
+                    xtype: 'button',
+                    text: '控制台',
+                    itemId: 'console',
+                    iconCls: 'console'
+                },
             ]
         }
     ]
