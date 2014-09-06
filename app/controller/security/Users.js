@@ -149,6 +149,7 @@ Ext.define('CloudApp.controller.security.Users', {
             Ext.Ajax.request({
                 url: url,
                 headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                method: 'POST',
                 params: {
                     id: values.id,
                     username: values.name,

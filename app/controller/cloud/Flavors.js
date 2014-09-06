@@ -127,7 +127,6 @@ Ext.define('CloudApp.controller.cloud.Flavors', {
         if (formPanel.getForm().isValid()) {
             url = API_URL + '/flavors';
             var values = formPanel.getValues();
-            console.log(values);
             if (values.id) {
                 url = url + '/' + values.id;
             }
@@ -135,6 +134,7 @@ Ext.define('CloudApp.controller.cloud.Flavors', {
             Ext.Ajax.request({
                 url: url,
                 headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                method: 'POST',
                 params: {
                     id: values.id,
                     name: values.name,

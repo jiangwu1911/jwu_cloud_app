@@ -10,32 +10,21 @@ Ext.define('CloudApp.view.cloud.ServersList', {
             width: 150,
             dataIndex: 'name',
             flex: 1,
-            text: '名称'
+            text: '主机名'
         },
         {
-            width: 80,
-            dataIndex: 'vcpus',
-            text: '虚拟内核'
-        },
-        {
-            width: 80,
-            dataIndex: 'ram',
-            text: '内存(MB)'
-        },
-        {
-            width: 80,
-            dataIndex: 'disk',
-            text: '根磁盘(GB)'
-        },
-        {
-            width: 80,
-            dataIndex: 'ephemeral',
-            text: '临时磁盘(GB)'
-        },
-        {
-            width: 80,
-            dataIndex: 'swap',
-            text: '交换空间(MB)'
+            width: 250,
+            dataIndex: 'sysinfo',
+            text: '配置',
+            renderer: function(value, meta, record) {
+                console.log(record);
+                value = '虚拟内核: ' + record.raw.vcpus + ', '
+                      + '内存: ' +  record.raw.ram + 'MB, <br> '
+                      + '根硬盘: ' + record.raw.disk + 'GB, '
+                      + '临时硬盘: ' + record.raw.ephemeral + 'GB, <br> '
+                      + '交换空间: ' + record.raw.swap + 'MB';
+                return value;
+            } 
         },
         {
             width: 80,
@@ -46,7 +35,7 @@ Ext.define('CloudApp.view.cloud.ServersList', {
             width: 150,
             dataIndex: 'created_at',
             text: '创建于',
-            renderer: function(value,meta,record) {     
+            renderer: function(value, meta, record) {     
                 meta.attr = 'style="white-space:normal;"';   
                 return value;  
             }  
