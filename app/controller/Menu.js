@@ -41,8 +41,6 @@ Ext.define('CloudApp.controller.Menu', {
                      {id:2, text:'部门', iconCls:'menu_dept', parent_id:1, className:'depts'},
                      {id:3, text:'用户', iconCls:'menu_user', parent_id:1, className:'users'},
                      {id:7, text:'云平台管理', iconCls:'menu_openstack', parent_id:null, className:null},
-                     {id:8, text:'云主机类型', iconCls:'menu_flavor', parent_id:7, className:'flavors'},
-                     {id:9, text:'镜像', iconCls:'menu_image', parent_id:7, className:'images'},
                      {id:10, text:'云主机', iconCls:'menu_server', parent_id:7, className:'servers'},
                      {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:null},
                      {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:null}] };
@@ -50,8 +48,6 @@ Ext.define('CloudApp.controller.Menu', {
         } else {
             data = { menuitems:
                     [{id:7, text:'云平台管理', iconCls:'menu_openstack', parent_id:null, className:null},
-                     {id:8, text:'云主机类型', iconCls:'menu_flavor', parent_id:7, className:'flavors'},
-                     {id:9, text:'镜像', iconCls:'menu_image', parent_id:7, className:'images'},
                      {id:10, text:'云主机', iconCls:'menu_server', parent_id:7, className:'servers'},
                      {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:null},
                      {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:null}] };

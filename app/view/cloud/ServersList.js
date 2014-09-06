@@ -49,5 +49,15 @@ Ext.define('CloudApp.view.cloud.ServersList', {
             dataIndex: 'task_state',
             text: '任务'
         },
+        {
+            width: 100, 
+            dataIndex: 'owner',
+            text: '分配给',
+            renderer: function(value, metaData, record ){
+                var usersStore = Ext.getStore('security.Users');
+                var user = usersStore.findRecord('id', value);
+                return user != null ? user.get('name') : value;
+            }
+        },
     ]
 });

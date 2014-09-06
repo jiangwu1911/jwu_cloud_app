@@ -15,6 +15,9 @@ Ext.define('CloudApp.model.cloud.Server', {
         { name: 'swap' },
         { name: 'ip' },
         { name: 'console_url' },
+        { name: 'fault' },
+        { name: 'creator' },
+        { name: 'owner' },
         { name: 'created_at' },
     ]
 });

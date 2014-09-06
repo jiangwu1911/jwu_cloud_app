@@ -31,9 +31,13 @@ Ext.define('CloudApp.controller.cloud.Servers', {
             "servers #serverslist": {
                 render: this.onRender,
                 select: this.onSelect,
+                itemdblclick: this.onButtonClickEdit
             },
             "servers button#add": {
                 click: this.onButtonClickAdd
+            },
+            "servers button#edit": {
+                click: this.onButtonClickEdit
             },
             "servers button#delete": {
                 click: this.onButtonClickDelete
@@ -58,6 +62,13 @@ Ext.define('CloudApp.controller.cloud.Servers', {
     },
 
     onRender: function(component, options) {
+        role = Ext.util.Cookies.get('user_role');
+        if (role != '系统管理员') {
+            Ext.ComponentQuery.query('servers button#add')[0].hide();
+            Ext.ComponentQuery.query('servers button#edit')[0].hide();
+            Ext.ComponentQuery.query('servers button#delete')[0].hide();
+        }
+
         var imagesStore = Ext.getStore('cloud.Images');
         CloudApp.util.Util.addToken(imagesStore);
         imagesStore.load();
@@ -65,6 +76,10 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         var flavorsStore = Ext.getStore('cloud.Flavors');
         CloudApp.util.Util.addToken(flavorsStore);
         flavorsStore.load();
+
+        var usersStore = Ext.getStore('security.Users');
+        CloudApp.util.Util.addToken(usersStore);
+        usersStore.load();
 
         var task = { 
             run: function() {
@@ -124,6 +139,10 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         var btn3 = Ext.ComponentQuery.query('servers button#console')[0];
 
         switch (state) {
+            case 'error':
+                btn1.disable();
+                btn2.disable();
+                btn3.disable();
             case 'building':
                 btn1.setIconCls('stop');
                 btn1.setText('停止');
@@ -167,6 +186,10 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         var win = Ext.create('CloudApp.view.cloud.ServerCreate');
         win.setTitle('创建云主机');
         win.show();
+    },
+
+    onButtonClickEdit: function (button, e, options) {
+        console.log('1');
     },
 
     onButtonClickDelete: function (button, e, options) {
