@@ -49,6 +49,13 @@ Ext.define('CloudApp.controller.cloud.Flavors', {
     onRender: function(component, options) {
         CloudApp.util.Util.addToken(component.getStore());
         component.getStore().load();
+
+        role = Ext.util.Cookies.get('user_role');
+        if (role != '系统管理员') {
+            Ext.ComponentQuery.query('flavors button#add')[0].hide();
+            Ext.ComponentQuery.query('flavors button#edit')[0].hide();
+            Ext.ComponentQuery.query('flavors button#delete')[0].hide();
+        }
     },
 
     onButtonClickAdd: function (button, e, options) {
@@ -58,6 +65,10 @@ Ext.define('CloudApp.controller.cloud.Flavors', {
     },
 
     onButtonClickEdit: function (button, e, options) {
+        role = Ext.util.Cookies.get('user_role');
+        if (role != '系统管理员') {
+            return;
+        }
         var grid = this.getFlavorsList();
         var record = grid.getSelectionModel().getSelection();
 
