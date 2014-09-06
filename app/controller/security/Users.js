@@ -70,9 +70,6 @@ Ext.define('CloudApp.controller.security.Users', {
             // 只好从store里重新读取一遍            
             data = grid.getStore().getById(record[0].get('id'));
 
-            console.log(record[0]);
-            console.log(data);
-
             var editWindow = Ext.create('CloudApp.view.security.Profile');
             editWindow.down('form').loadRecord(data);
 
@@ -134,14 +131,20 @@ Ext.define('CloudApp.controller.security.Users', {
                 return; 
             }
 
-            record = formPanel.getRecord();
             var encrypted_password = values.password;
-            if (record.raw.password != encrypted_password) {
-                // 用户修改过密码
+            record = formPanel.getRecord();
+            if (record) {
+                if (record.raw.password != encrypted_password) {
+                    // 用户修改过密码
+                    encrypted_password = CloudApp.util.MD5.encode(values.password);
+                }
+            } else {
                 encrypted_password = CloudApp.util.MD5.encode(values.password);
             }
 
-            url = url + '/' + values.id;
+            if (values.id > 0) {
+                url = url + '/' + values.id;
+            }
            
             Ext.Ajax.request({
                 url: url,

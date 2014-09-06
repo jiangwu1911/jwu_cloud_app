@@ -1,6 +1,6 @@
-Ext.define('CloudApp.view.security.Profile', {
+Ext.define('CloudApp.view.cloud.FlavorEdit', {
     extend: 'Ext.window.Window',
-    alias: 'widget.profile',
+    alias: 'widget.flavoredit',
 
     height: 260,
     width: 550,
@@ -12,7 +12,7 @@ Ext.define('CloudApp.view.security.Profile', {
         align: 'stretch',
         type: 'vbox'
     },
-    title: 'User',
+    title: '云主机类型',
 
     items: [
         {
@@ -26,13 +26,13 @@ Ext.define('CloudApp.view.security.Profile', {
                 {
                     xtype: 'fieldset',
                     flex: 2,
-                    title: '用户信息',
+                    title: '云主机类型',
                     defaults: {
                         afterLabelTextTpl: CloudApp.util.Util.required,
                         anchor: '100%',
                         xtype: 'textfield',
                         allowBlank: false,
-                        labelWidth: 60
+                        labelWidth: 100
                     },
                     items: [
                         {
@@ -41,49 +41,41 @@ Ext.define('CloudApp.view.security.Profile', {
                             name: 'id',
                         },
                         {
-                            fieldLabel: '姓名',
+                            fieldLabel: '名称',
                             maxLength: 100,
                             name: 'name'
                         },
                         {
-                            fieldLabel: '电子邮件',
+                            xtype : 'numberfield',
+                            fieldLabel: '虚拟内核个数',
                             maxLength: 100,
-                            allowBlank: true,
-                            afterLabelTextTpl: '',
-                            name: 'email'
+                            name: 'vcpus'
                         },
                         {
-                            fieldLabel: '密码',
-                            name: 'password',
-                            maxLength: 50,
-                            inputType: 'password'
+                            xtype : 'numberfield',
+                            fieldLabel: '内存(MB)',
+                            maxLength: 100,
+                            name: 'ram'
                         },
                         {
-                            fieldLabel: '重复密码',
-                            name: 'password_again',
-                            itemId: 'password_again',
-                            maxLength: 50,
-                            inputType: 'password'
+                            xtype : 'numberfield',
+                            fieldLabel: '根磁盘(GB)',
+                            maxLength: 100,
+                            name: 'disk'
                         },
                         {
-                            xtype: 'combobox',
-                            fieldLabel: '所属部门',
-                            name: 'dept_id',
-                            displayField: 'name',
-                            valueField: 'id',
-                            queryMode: 'local',
-                            store: 'security.Depts',
-                            editable: false,
+                            xtype : 'numberfield',
+                            fieldLabel: '临时磁盘(GB)',
+                            maxLength: 100,
+                            name: 'ephemeral',
+                            value: 0
                         },
                         {
-                            xtype: 'combobox',
-                            fieldLabel: '角色权限',
-                            name: 'role_id',
-                            displayField: 'name',
-                            valueField: 'id',
-                            queryMode: 'local',
-                            store: 'security.Roles',
-                            editable: false,
+                            xtype : 'numberfield',
+                            fieldLabel: '交换空间(GB)',
+                            maxLength: 100,
+                            name: 'swap',
+                            value: 0
                         },
                     ]
                 },

@@ -29,7 +29,7 @@ Ext.define('CloudApp.view.cloud.FlavorsList', {
         },
         {
             width: 100,
-            dataIndex: 'OS-FLV-EXT-DATA:ephemeral',
+            dataIndex: 'ephemeral',
             text: '临时磁盘(GB)'
         },
         {

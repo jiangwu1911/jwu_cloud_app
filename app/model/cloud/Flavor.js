@@ -9,7 +9,7 @@ Ext.define('CloudApp.model.cloud.Flavor', {
         { name: 'vcpus' },
         { name: 'ram' },
         { name: 'disk' },
-        { name: 'OS-FLV-EXT-DATA:ephemeral' },
+        { name: 'ephemeral' },
         { name: 'swap' },
     ]
 });
