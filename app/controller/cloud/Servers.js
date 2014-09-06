@@ -9,6 +9,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         'cloud.Servers',
         'cloud.ServersList',
         'cloud.ServerCreate',
+        'cloud.ServerEdit',
         'cloud.Console',
     ],
 
@@ -50,6 +51,12 @@ Ext.define('CloudApp.controller.cloud.Servers', {
             },
             "servers button#console": {
                 click: this.onButtonClickConsole
+            },
+            "serveredit button#save": {
+                click: this.onButtonClickEditSave
+            },
+            "serveredit button#cancel": {
+                click: this.onButtonClickEditCancel
             },
             "servercreate button#save": {
                 click: this.onButtonClickSave
@@ -189,7 +196,41 @@ Ext.define('CloudApp.controller.cloud.Servers', {
     },
 
     onButtonClickEdit: function (button, e, options) {
-        console.log('1');
+        role = Ext.util.Cookies.get('user_role');
+        if (role != '系统管理员')
+            return;
+
+        var grid = this.getServersList();
+        var record = grid.getSelectionModel().getSelection();
+
+        if(record[0]) {
+            // record[0]里的数据是未更新的数据，可能是extjs的bug
+            // 只好从store里重新读取一遍
+            data = grid.getStore().getById(record[0].get('id'));
+        
+            var editWindow = Ext.create('CloudApp.view.cloud.ServerEdit');
+            editWindow.down('form').loadRecord(data);
+
+            var sysinfo = editWindow.down('#sysinfo');
+            sysinfo.setValue('虚拟内核: ' + data.raw.vcpus + ', '
+                          + '内存: ' +  data.raw.ram + 'MB,'
+                          + '根硬盘: ' + data.raw.disk + 'GB, <br>'
+                          + '临时硬盘: ' + data.raw.ephemeral + 'GB,'
+                          + '交换空间: ' + data.raw.swap + 'MB');
+
+            var fault = editWindow.down('#fault');
+            var button = editWindow.down('#save');
+            if (!data.raw.fault) {
+                fault.hide();
+                button.enable();
+            } else {
+                fault.show();
+                button.disable();
+            }
+
+            editWindow.setTitle(data.get('name'));
+            editWindow.show();
+        }
     },
 
     onButtonClickDelete: function (button, e, options) {
@@ -332,7 +373,6 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                 },
                 success: function(conn, response, options, eOpts) {
                     ret = CloudApp.util.Util.decodeJSON(conn.responseText);
-                    console.log(ret);
                     console_url = ret.console.url; 
 
                     if (console_url) {
@@ -394,6 +434,44 @@ Ext.define('CloudApp.controller.cloud.Servers', {
     },
 
     onButtonClickCancel: function(button, e, options) {
+        button.up('window').close();
+    },
+
+    onButtonClickEditSave: function(button, e, options) {
+        role = Ext.util.Cookies.get('user_role');
+        if (role != '系统管理员')
+            return;
+
+        var win = button.up('window'),
+        formPanel = win.down('form'),
+        store = this.getServersList().getStore();
+
+        if (formPanel.getForm().isValid()) {
+            var values = formPanel.getValues();
+            url = API_URL + '/servers/' + values.id;
+
+            Ext.Ajax.request({
+                url: url,
+                headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                method: 'POST',
+                params: {
+                    name: values.name,
+                    owner: values.owner,
+                },
+                success:  function(conn, response, options, eOpts) {
+                    CloudApp.util.Alert.msg('成功', '正在保存云主机配置。');
+                    store.load();
+                    win.close();
+                },
+                failure: function(conn, response, options, eOpts) {
+                    Ext.get(formPanel.getEl()).unmask();
+                    CloudApp.util.Util.showErrorMsg(conn.responseText);
+                }
+            });
+        }
+    },
+
+    onButtonClickEditCancel: function(button, e, options) {
         button.up('window').close();
     },
 });

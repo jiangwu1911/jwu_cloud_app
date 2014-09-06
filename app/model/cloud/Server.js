@@ -6,6 +6,8 @@ Ext.define('CloudApp.model.cloud.Server', {
     fields: [
         { name: 'id' },
         { name: 'name' },
+        { name: 'image' },
+        { name: 'flavor' },
         { name: 'state' },
         { name: 'task_state' },
         { name: 'vcpus' },
