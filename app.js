@@ -47,8 +47,8 @@ Ext.application({
         'cloud.Flavors',
         'cloud.Images',
         'cloud.Servers',
+        'cloud.Hypervisors',
         'cloud.HypervisorStatsPie',
-        'cloud.HypervisorsList',
     ],
 
     stores: [
@@ -72,6 +72,7 @@ Ext.application({
         'cloud.Flavors',
         'cloud.Images',
         'cloud.Servers',
+        'cloud.Hypervisors',
     ],
     
     splashscreen: {},

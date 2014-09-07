@@ -12,7 +12,7 @@ Ext.define('CloudApp.store.cloud.HypervisorStats', {
         extraParams: { action: 'stats' },
         reader: {
             type: 'json',
-            root: 'hypervisors'
+            root: 'hypervisor_stats'
         }
     },
 });

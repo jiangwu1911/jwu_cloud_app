@@ -1,6 +1,6 @@
 Ext.define('CloudApp.view.cloud.HypervisorsList', {
     extend: 'Ext.grid.Panel',
-    alias: 'widget.hyperlist',
+    alias: 'widget.hypervisorslist',
 
     frame: true,
     store: Ext.create('CloudApp.store.cloud.HypervisorsList'),
@@ -18,15 +18,4 @@ Ext.define('CloudApp.view.cloud.HypervisorsList', {
             text: '类型'
         },
     ],
-
-    dockedItems: [{
-        xtype: 'toolbar',
-        flex: 1,
-        dock: 'top',
-        items: [
-            {
-                xtype: 'hypervisorstatspie'
-            },
-        ]
-    }]
 });

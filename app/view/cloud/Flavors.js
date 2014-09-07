@@ -16,6 +16,7 @@ Ext.define('CloudApp.view.cloud.Flavors', {
             itemId: 'flavorslist',
         },
     ],
+
     dockedItems: [
         {
             xtype: 'toolbar',

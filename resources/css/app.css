@@ -151,7 +151,7 @@
 .menu_hardware {
   background-image:url('../icons/folder_user.png') !important;
 }
-.menu_host {
+.menu_hypervisor {
   background-image:url('../icons/vcard.png') !important;
 }
 .menu_storage {

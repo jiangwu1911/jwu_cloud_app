@@ -39,7 +39,6 @@ Ext.define('CloudApp.view.cloud.FlavorsList', {
             renderer: function(value, metaData, record) {
                 return value=='' ? 0 : value;
             }
-            
         },
     ]
 });
