@@ -7,13 +7,13 @@ Ext.define('CloudApp.view.cloud.ServersList', {
 
     columns: [
         {
-            width: 150,
+            width: 120,
             dataIndex: 'name',
             flex: 1,
             text: '主机名'
         },
         {
-            width: 250,
+            width: 220,
             dataIndex: 'sysinfo',
             text: '配置',
             renderer: function(value, meta, record) {
@@ -45,7 +45,7 @@ Ext.define('CloudApp.view.cloud.ServersList', {
             text: '状态'
         },
         {
-            width: 100,
+            width: 120,
             dataIndex: 'task_state',
             text: '任务'
         },
