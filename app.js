@@ -35,6 +35,8 @@ Ext.application({
         'CloudApp.store.cloud.Flavors',
         'CloudApp.store.cloud.Images',
         'CloudApp.store.cloud.Servers',
+        'CloudApp.store.cloud.HypervisorsList',
+        'CloudApp.store.cloud.HypervisorStats',
     ],
 
     extend: 'CloudApp.Application',
@@ -45,6 +47,8 @@ Ext.application({
         'cloud.Flavors',
         'cloud.Images',
         'cloud.Servers',
+        'cloud.HypervisorStatsPie',
+        'cloud.HypervisorsList',
     ],
 
     stores: [
@@ -55,6 +59,8 @@ Ext.application({
         'cloud.Flavors',
         'cloud.Images',
         'cloud.Servers',
+        'cloud.HypervisorsList',
+        'cloud.HypervisorStats',
     ],
  
     controllers: [

@@ -87,6 +87,14 @@ Ext.define('CloudApp.controller.Login', {
                         CloudApp.util.Util.addToken(rolesStore);
                         rolesStore.load();
 
+                        var hyperStatsStore = Ext.getStore('cloud.HypervisorStats');
+                        CloudApp.util.Util.addToken(hyperStatsStore);
+                        hyperStatsStore.load();
+
+                        var hyperListStore = Ext.getStore('cloud.HypervisorsList');
+                        CloudApp.util.Util.addToken(hyperListStore);
+                        hyperListStore.load();
+
                     } else {
                         CloudApp.util.Util.showErrorMsg(conn.responseText);
                     }
