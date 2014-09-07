@@ -24,6 +24,9 @@ Ext.define('CloudApp.controller.security.Users', {
 
     init: function(application) {
         this.control({
+            "users": {
+                activate: this.onActivate,
+            },
             "users #alluserslist": {
                 render: this.onRender,
                 itemdblclick: this.onButtonClickEdit
@@ -51,8 +54,23 @@ Ext.define('CloudApp.controller.security.Users', {
     },
 
     onRender: function(component, options) {
+        var serversStore = Ext.getStore('cloud.Servers');
+        CloudApp.util.Util.addToken(serversStore);
+        serversStore.load();
+
         CloudApp.util.Util.addToken(component.getStore());
         component.getStore().load();
+    },
+
+    onActivate: function(component, eOpts) {
+        //每次显示时刷新，以便及时得到user的状态
+        var serversStore = Ext.getStore('cloud.Servers');
+        CloudApp.util.Util.addToken(serversStore);
+        serversStore.load();
+
+        var store = component.down('#alluserslist').getStore();
+        CloudApp.util.Util.addToken(store);
+        store.load();
     },
 
     onButtonClickAdd: function (button, e, options) {

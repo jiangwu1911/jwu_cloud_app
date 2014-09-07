@@ -70,7 +70,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
 
     onRender: function(component, options) {
         role = Ext.util.Cookies.get('user_role');
-        if (role != '系统管理员') {
+        if (role != '系统管理员' && role != '部门管理员') {
             Ext.ComponentQuery.query('servers button#add')[0].hide();
             Ext.ComponentQuery.query('servers button#edit')[0].hide();
             Ext.ComponentQuery.query('servers button#delete')[0].hide();
@@ -197,7 +197,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
 
     onButtonClickEdit: function (button, e, options) {
         role = Ext.util.Cookies.get('user_role');
-        if (role != '系统管理员')
+        if (role != '系统管理员' && role != '部门管理员')
             return;
 
         var grid = this.getServersList();
@@ -439,7 +439,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
 
     onButtonClickEditSave: function(button, e, options) {
         role = Ext.util.Cookies.get('user_role');
-        if (role != '系统管理员')
+        if (role != '系统管理员' && role != '部门管理员')
             return;
 
         var win = button.up('window'),

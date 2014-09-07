@@ -133,6 +133,10 @@
   background-image:url('../icons/console.png') !important;
 }
 
+.server {
+  background-image:url('../icons/server.gif') !important;
+}
+
 .menu_admin {
   background-image:url('../icons/folder_user.png') !important;
 }
