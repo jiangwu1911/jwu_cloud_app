@@ -220,12 +220,19 @@ Ext.define('CloudApp.controller.cloud.Servers', {
 
             var fault = editWindow.down('#fault');
             var button = editWindow.down('#save');
+            var name_field = editWindow.down('#name');
+            var owner_field = editWindow.down('#owner');
+
             if (!data.raw.fault) {
                 fault.hide();
                 button.enable();
+                name_field.enable();
+                owner_field.enable();
             } else {
                 fault.show();
                 button.disable();
+                name_field.disable();
+                owner_field.disable();
             }
 
             editWindow.setTitle(data.get('name'));

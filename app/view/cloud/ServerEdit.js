@@ -44,7 +44,8 @@ Ext.define('CloudApp.view.cloud.ServerEdit', {
                             afterLabelTextTpl: CloudApp.util.Util.required,
                             fieldLabel: '主机名',
                             maxLength: 100,
-                            name: 'name'
+                            name: 'name',
+                            itemId: 'name',
                         },
                         {
                             xtype: 'displayfield',
@@ -88,6 +89,7 @@ Ext.define('CloudApp.view.cloud.ServerEdit', {
                             store: 'security.Users',
                             editable: false,
                             allowBlank: true,
+                            itemId: 'owner',
                         },
 
                     ]
