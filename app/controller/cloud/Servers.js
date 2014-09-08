@@ -235,6 +235,9 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                 owner_field.disable();
             }
 
+            if (owner_field.getValue() == 0) 
+                owner_field.setValue('');
+
             editWindow.setTitle(data.get('name'));
             editWindow.show();
         }

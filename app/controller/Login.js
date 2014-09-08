@@ -77,24 +77,6 @@ Ext.define('CloudApp.controller.Login', {
                         login.close();
                         Ext.create('CloudApp.view.MyViewport');
                         CloudApp.util.SessionMonitor.start();
-
-                        // 有些动作login完马上需要做
-                        var deptsStore = Ext.getStore('security.Depts');
-                        CloudApp.util.Util.addToken(deptsStore);
-                        deptsStore.load();
-
-                        var rolesStore = Ext.getStore('security.Roles');
-                        CloudApp.util.Util.addToken(rolesStore);
-                        rolesStore.load();
-
-                        var hyperStatsStore = Ext.getStore('cloud.HypervisorStats');
-                        CloudApp.util.Util.addToken(hyperStatsStore);
-                        hyperStatsStore.load();
-
-                        var hyperListStore = Ext.getStore('cloud.HypervisorsList');
-                        CloudApp.util.Util.addToken(hyperListStore);
-                        hyperListStore.load();
-
                     } else {
                         CloudApp.util.Util.showErrorMsg(conn.responseText);
                     }

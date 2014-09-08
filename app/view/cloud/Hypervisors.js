@@ -29,6 +29,7 @@ Ext.define('CloudApp.view.cloud.Hypervisors', {
             {
                 xtype: 'hypervisorstatspie',
                 itemId: 'vcpus_pie',
+                store: 'cloud.HypervisorStats',
                 series: [{
                     type: 'pie',
                     field: 'vcpus',

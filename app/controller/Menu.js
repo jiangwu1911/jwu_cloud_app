@@ -32,7 +32,7 @@ Ext.define('CloudApp.controller.Menu', {
                      {id:8, text:'云主机类型', iconCls:'menu_flavor', parent_id:7, className:'flavors'},
                      {id:9, text:'镜像', iconCls:'menu_image', parent_id:7, className:'images'},
                      {id:10, text:'云主机', iconCls:'menu_server', parent_id:7, className:'servers'},
-                     {id:11, text:'云硬盘', iconCls:'menu_vdisk', parent_id:7, className:null},
+                     {id:11, text:'云硬盘', iconCls:'menu_volume', parent_id:7, className:'volumes'},
                      {id:12, text:'快照', iconCls:'menu_snapshot', parent_id:7, className:null}] };
 
         } else if (role == '部门管理员') {
