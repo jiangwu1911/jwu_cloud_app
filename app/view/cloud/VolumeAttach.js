@@ -1,8 +1,8 @@
-Ext.define('CloudApp.view.cloud.VolumeEdit', {
+Ext.define('CloudApp.view.cloud.VolumeAttach', {
     extend: 'Ext.window.Window',
-    alias: 'widget.volumeedit',
+    alias: 'widget.volumeattach',
 
-    height: 260,
+    height: 180,
     width: 460,
     modal: true,
 
@@ -12,7 +12,7 @@ Ext.define('CloudApp.view.cloud.VolumeEdit', {
         align: 'stretch',
         type: 'vbox'
     },
-    title: '编辑云硬盘',
+    title: '挂载云硬盘',
 
     items: [
         {
@@ -26,7 +26,7 @@ Ext.define('CloudApp.view.cloud.VolumeEdit', {
                 {
                     xtype: 'fieldset',
                     flex: 2,
-                    title: '编辑云硬盘',
+                    title: '挂载云硬盘',
                     defaults: {
                         afterLabelTextTpl: '',
                         anchor: '100%',
@@ -41,11 +41,9 @@ Ext.define('CloudApp.view.cloud.VolumeEdit', {
                             name: 'id',
                         },
                         {
-                            afterLabelTextTpl: CloudApp.util.Util.required,
+                            xtype: 'displayfield',
                             fieldLabel: '云硬盘名称',
-                            maxLength: 100,
                             name: 'name',
-                            itemId: 'name',
                         },
                         {
                             xtype: 'displayfield',
@@ -53,32 +51,16 @@ Ext.define('CloudApp.view.cloud.VolumeEdit', {
                             name: 'size',
                         },
                         {
-                            xtype: 'displayfield',
-                            fieldLabel: '创建于',
-                            name: 'created_at',
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: '状态',
-                            name: 'status',
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: '错误信息',
-                            name: 'fault',
-                            itemId: 'fault',
-                        },
-                        {
                             xtype: 'combobox',
-                            fieldLabel: '分配给',
-                            name: 'owner',
+                            fieldLabel: '挂载到',
+                            name: 'server',
                             displayField: 'name',
                             valueField: 'id',
                             queryMode: 'local',
-                            store: 'security.Users',
+                            store: 'cloud.Servers',
                             editable: false,
                             allowBlank: true,
-                            itemId: 'owner',
+                            itemId: 'server',
                         },
                     ]
                 },

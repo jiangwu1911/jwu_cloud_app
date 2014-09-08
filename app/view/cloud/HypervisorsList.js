@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.cloud.HypervisorsList', {
     alias: 'widget.hypervisorslist',
 
     frame: true,
-    store: Ext.create('CloudApp.store.cloud.HypervisorsList'),
+    store: 'cloud.HypervisorsList',
 
     columns: [
         {

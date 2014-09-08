@@ -10,6 +10,7 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
         'cloud.VolumesList',
         'cloud.VolumeEdit',
         'cloud.VolumeCreate',
+        'cloud.VolumeAttach',
     ],
 
     stores: [
@@ -60,6 +61,12 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
             "volumes button#detach": {
                 click: this.onButtonClickDetach
             },
+            "volumeattach button#save": {
+                click: this.onButtonClickAttachSave
+            },
+            "volumeattach button#cancel": {
+                click: this.onButtonClickAttachCancel
+            },
         });
     },
 
@@ -76,6 +83,12 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
         var usersStore = Ext.getStore('security.Users');
         usersStore.load();
 
+        var serversStore = Ext.getStore('cloud.Servers');
+        serversStore.load();
+
+        store = component.getStore();
+        CloudApp.util.Util.addToken(store);
+
         var task = {
             run: function() {
                 component.getStore().each(function(r) {
@@ -91,6 +104,8 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
                                 ret = CloudApp.util.Util.decodeJSON(conn.responseText);
                                 r.data.status = ret.volume.status;
                                 r.raw.status = ret.volume.status;
+                                console.log(ret.volume.attached_to);
+                                r.data.attached_to = ret.volume.attached_to;
                                 r.dirty = true;
                             },
                             failure: function(conn, response, options, eOpts) {
@@ -111,9 +126,8 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
     },
 
     onActivate: function(component, eOpts) {
-        store = component.down('#volumeslist').getStore();
-        CloudApp.util.Util.addToken(store);
-        store.load();
+        grid = component.down('#volumeslist');
+        grid.getStore().load();
     },
 
     onSelect: function(component, record, index, eOpts) {
@@ -139,6 +153,7 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
                 btn2.disable();
                 break;
             case 'in-use':
+            case 'detaching':
                 btn1.disable();
                 btn2.enable();
         }
@@ -168,17 +183,21 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
             var name_field = editWindow.down('#name');
             var owner_field = editWindow.down('#owner');
 
-            if (!data.raw.fault) {
-                fault.hide();
-                button.enable();
-                name_field.enable();
-                owner_field.enable();
-            } else {
+            if (data.get('fault')) {
                 fault.show();
                 button.disable();
                 name_field.disable();
                 owner_field.disable();
-            }
+            } else {
+                fault.hide();
+                button.enable();
+                name_field.enable();
+                if (data.get('status') == 'in-use') {
+                    owner_field.disable();
+                } else {
+                    owner_field.enable();
+                }
+            } 
 
             if (owner_field.getValue() == 0)
                 owner_field.setValue('');
@@ -290,7 +309,18 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
     },
 
     onButtonClickAttach: function(button, e, options) {
+        var grid = this.getVolumesList();
+        var record = grid.getSelectionModel().getSelection();
+        store = grid.getStore();
 
+        if (record[0]) {
+            data = grid.getStore().getById(record[0].get('id'));
+
+            var attachWindow = Ext.create('CloudApp.view.cloud.VolumeAttach');
+            attachWindow.down('form').loadRecord(data);
+            attachWindow.setTitle(data.get('name'));
+            attachWindow.show();
+        }
     },
 
     onButtonClickDetach: function(button, e, options) {
@@ -327,5 +357,39 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
                  }
             });
         }
+    },
+
+    onButtonClickAttachSave: function(button, e, options) {
+        var win = button.up('window'),
+        formPanel = win.down('form'),
+        store = this.getVolumesList().getStore();
+
+        if (formPanel.getForm().isValid()) {
+            var values = formPanel.getValues();
+            url = API_URL + '/volumes/' + values.id;
+
+            Ext.Ajax.request({
+                url: url,
+                headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                method: 'POST',
+                params: {
+                    action: 'attach',
+                    server_id: values.server,
+                },
+                success:  function(conn, response, options, eOpts) {
+                    CloudApp.util.Alert.msg('信息', '正在挂载云硬盘。');
+                    store.load();
+                    win.close();
+                },
+                failure: function(conn, response, options, eOpts) {
+                    Ext.get(formPanel.getEl()).unmask();
+                    CloudApp.util.Util.showErrorMsg(conn.responseText);
+                }
+            });
+        }
+    },
+
+    onButtonClickAttachCancel: function(button, e, options) {
+        button.up('window').close();
     },
 });

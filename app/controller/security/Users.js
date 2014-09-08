@@ -54,16 +54,18 @@ Ext.define('CloudApp.controller.security.Users', {
     },
 
     onRender: function(component, options) {
+        var store = component.getStore();
+        CloudApp.util.Util.addToken(store);
     },
 
     onActivate: function(component, eOpts) {
-        //每次显示时刷新，以便及时得到user的状态
         var serversStore = Ext.getStore('cloud.Servers');
-        serversStore.load();
-
-        var store = component.down('#alluserslist').getStore();
-        CloudApp.util.Util.addToken(store);
-        store.load();
+        serversStore.load({
+            callback: function(records, options, success) {
+                grid = component.down('#alluserslist');
+                grid.getStore().load();
+            }
+        });
     },
 
     onButtonClickAdd: function (button, e, options) {

@@ -84,6 +84,9 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         var usersStore = Ext.getStore('security.Users');
         usersStore.load();
 
+        var serversStore = component.getStore();
+        CloudApp.util.Util.addToken(serversStore);
+
         var task = { 
             run: function() {
                 component.getStore().each(function(r) {
@@ -122,10 +125,13 @@ Ext.define('CloudApp.controller.cloud.Servers', {
     },
 
     onActivate: function(component, eOpts) {
-        //每次显示时刷新，以便及时得到server的状态
-        store = component.down('#serverslist').getStore();
-        CloudApp.util.Util.addToken(store);
-        store.load();
+        var volumesStore = Ext.getStore('cloud.Volumes');
+        volumesStore.load({
+            callback: function(records, options, success) {
+                grid = component.down('#serverslist');
+                grid.getStore().load();
+            }
+        });
     },
 
     onSelect: function(component, record, index, eOpts) {

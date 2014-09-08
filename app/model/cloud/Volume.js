@@ -11,6 +11,7 @@ Ext.define('CloudApp.model.cloud.Volume', {
         { name: 'fault' },
         { name: 'creator' },
         { name: 'owner' },
+        { name: 'attached_to' },
         { name: 'created_at' },
         { name: 'updated_at' },
     ]

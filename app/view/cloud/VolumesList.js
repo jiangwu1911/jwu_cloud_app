@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.cloud.VolumesList', {
     alias: 'widget.volumeslist',
 
     frame: true,
-    store: Ext.create('CloudApp.store.cloud.Volumes'),
+    store: 'cloud.Volumes',
 
     columns: [
         {
@@ -27,15 +27,25 @@ Ext.define('CloudApp.view.cloud.VolumesList', {
             }
         },
         {
-            width: 200,
+            width: 100,
             dataIndex: 'status',
             text: '状态'
         },
         {
+            width: 150,
+            dataIndex: 'attached_to',
+            text: '挂载到云主机',
+            renderer: function(value, metaData, record) {
+                var serversStore = Ext.getStore('cloud.Servers');
+                var server = serversStore.findRecord('id', value);
+                return server != null? server.get('name') + ' (' + server.get('ip') + ')' : ''
+            }
+        }, 
+        {
             width: 100,
             dataIndex: 'owner',
             text: '分配给',
-            renderer: function(value, metaData, record ){
+            renderer: function(value, metaData, record) {
                 var usersStore = Ext.getStore('security.Users');
                 var user = usersStore.findRecord('id', value);
                 return user != null ? user.get('name') : '';

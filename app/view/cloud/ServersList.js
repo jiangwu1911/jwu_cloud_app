@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.cloud.ServersList', {
     alias: 'widget.serverslist',
 
     frame: true,
-    store: Ext.create('CloudApp.store.cloud.Servers'),
+    store: 'cloud.Servers',
 
     columns: [
         {
@@ -13,7 +13,7 @@ Ext.define('CloudApp.view.cloud.ServersList', {
             text: '主机名'
         },
         {
-            width: 220,
+            width: 200,
             dataIndex: 'sysinfo',
             text: '配置',
             renderer: function(value, meta, record) {
@@ -57,6 +57,26 @@ Ext.define('CloudApp.view.cloud.ServersList', {
                 var usersStore = Ext.getStore('security.Users');
                 var user = usersStore.findRecord('id', value);
                 return user != null ? user.get('name') : '';
+            }
+        },
+        {
+            width: 150,
+            dataIndex: 'id',
+            text: '已挂载的云硬盘',
+            renderer: function(value, metaData, record ){
+                var volume_names = '';
+                var volumesStore = Ext.getStore('cloud.Volumes');
+                var volumes = volumesStore.findBy(function(record, id) {
+                    if (record.get('attached_to') == value) {
+                        title = '名称: ' + record.get('name') + '\n'
+                               + '大小: ' + record.get('size') + 'GB';
+                        volume_names = volume_names
+                                       + '<input id="show" type=image src=resources/icons/harddisk.ico'
+                                       + ' title="' + title + '" />'
+                                       + '&nbsp;';
+                    }
+                });
+                return volume_names;
             }
         },
     ]

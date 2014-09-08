@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.cloud.ImagesList', {
     alias: 'widget.imageslist',
 
     frame: true,
-    store: Ext.create('CloudApp.store.cloud.Images'),
+    store: 'cloud.Images',
 
     columns: [
         {

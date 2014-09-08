@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.security.UsersList', {
     alias: 'widget.userslist',
 
     frame: true,
-    store: Ext.create('CloudApp.store.security.Users'),
+    store: 'security.Users',
 
     columns: [
         {

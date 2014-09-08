@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.cloud.FlavorsList', {
     alias: 'widget.flavorslist',
 
     frame: true,
-    store: Ext.create('CloudApp.store.cloud.Flavors'),
+    store: 'cloud.Flavors',
 
     columns: [
         {
