@@ -11,6 +11,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         'cloud.ServerCreate',
         'cloud.ServerEdit',
         'cloud.Console',
+        'cloud.ServerSnapshot',
     ],
 
     stores: [
@@ -51,6 +52,15 @@ Ext.define('CloudApp.controller.cloud.Servers', {
             },
             "servers button#console": {
                 click: this.onButtonClickConsole
+            },
+            "servers button#snapshot": {
+                click: this.onButtonClickSnapshot
+            },
+            "serversnapshot button#save": {
+                click: this.onButtonClickSnapshotSave
+            },
+            "serversnapshot button#cancel": {
+                click: this.onButtonClickSnapshotCancel
             },
             "serveredit button#save": {
                 click: this.onButtonClickEditSave
@@ -480,6 +490,66 @@ Ext.define('CloudApp.controller.cloud.Servers', {
     },
 
     onButtonClickEditCancel: function(button, e, options) {
+        button.up('window').close();
+    },
+
+    onButtonClickSnapshot: function(button, e, options) {
+        var grid = this.getServersList();
+        var record = grid.getSelectionModel().getSelection();
+        store = grid.getStore();
+
+        if (record[0]) {
+            data = grid.getStore().getById(record[0].get('id'));
+
+            var win = Ext.create('CloudApp.view.cloud.ServerSnapshot');
+            win.down('form').loadRecord(data);
+
+            var dt = new Date();
+            var stime = (dt.getYear()+1900) + ''
+                      + (dt.getMonth()+1) + ''
+                      + dt.getDate() + '_'
+                      + dt.getHours()
+                      + dt.getMinutes()
+                      + dt.getSeconds()
+            var name_field = win.down('#snapshot_name');
+            name_field.setValue(data.get('name') + '_snapshot_' + stime);
+
+            win.setTitle(data.get('name'));
+            win.show();
+        }
+    },
+
+    onButtonClickSnapshotSave: function(button, e, options) {
+        var win = button.up('window'),
+        formPanel = win.down('form'),
+        store = this.getServersList().getStore();
+
+        if (formPanel.getForm().isValid()) {
+            var values = formPanel.getValues();
+            url = API_URL + '/servers/' + values.id;
+
+            Ext.Ajax.request({
+                url: url,
+                headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                method: 'POST',
+                params: {
+                    action: 'take_snapshot',
+                    snapshot_name: values.snapshot_name,
+                },
+                success:  function(conn, response, options, eOpts) {
+                    CloudApp.util.Alert.msg('信息', '正在创建快照。');
+                    store.load();
+                    win.close();
+                },
+                failure: function(conn, response, options, eOpts) {
+                    Ext.get(formPanel.getEl()).unmask();
+                    CloudApp.util.Util.showErrorMsg(conn.responseText);
+                }
+            });
+        }
+    },
+
+    onButtonClickSnapshotCancel: function(button, e, options) {
         button.up('window').close();
     },
 });

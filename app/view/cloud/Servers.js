@@ -54,6 +54,12 @@ Ext.define('CloudApp.view.cloud.Servers', {
                 },
                 {
                     xtype: 'button',
+                    text: '做快照',
+                    itemId: 'snapshot',
+                    iconCls: 'snapshot'
+                },
+                {
+                    xtype: 'button',
                     text: '控制台',
                     itemId: 'console',
                     iconCls: 'console'
