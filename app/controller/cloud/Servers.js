@@ -504,15 +504,9 @@ Ext.define('CloudApp.controller.cloud.Servers', {
             var win = Ext.create('CloudApp.view.cloud.ServerSnapshot');
             win.down('form').loadRecord(data);
 
-            var dt = new Date();
-            var stime = (dt.getYear()+1900) + ''
-                      + (dt.getMonth()+1) + ''
-                      + dt.getDate() + '_'
-                      + dt.getHours()
-                      + dt.getMinutes()
-                      + dt.getSeconds()
             var name_field = win.down('#snapshot_name');
-            name_field.setValue(data.get('name') + '_snapshot_' + stime);
+            var dt = CloudApp.util.Util.currentTime();
+            name_field.setValue(data.get('name') + '_snapshot_' + dt);
 
             win.setTitle(data.get('name'));
             win.show();

@@ -145,6 +145,10 @@
   background-image:url('../icons/volume_detach.png') !important;
 }
 
+.snapshot {
+  background-image:url('../icons/snapshot.png') !important;
+}
+
 .menu_admin {
   background-image:url('../icons/folder_user.png') !important;
 }
