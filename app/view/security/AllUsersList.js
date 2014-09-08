@@ -38,7 +38,7 @@ Ext.define('CloudApp.view.security.AllUsersList', {
             text: '拥有的云主机',
             renderer: function(value, metaData, record ){
                 var server_names = '';
-                var serversStore = Ext.getStore('cloud.Servers');
+                var serversStore = Ext.getStore('security.Servers');
                 var servers = serversStore.findBy(function(record, id) {
                     if (record.get('owner') == value) {
                         title = 'Hostname: ' + record.get('name') + '\n' 

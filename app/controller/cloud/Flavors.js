@@ -95,7 +95,7 @@ Ext.define('CloudApp.controller.cloud.Flavors', {
                             method: 'DELETE',
                             headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
                             success: function(conn, response, options, eOpts) {
-                                CloudApp.util.Alert.msg('成功', '成功删除云主机类型。');
+                                CloudApp.util.Alert.msg('信息', '成功删除云主机类型。');
                                 store.load();
                             },
                             failure: function(conn, response, options, eOpts) {
@@ -134,7 +134,7 @@ Ext.define('CloudApp.controller.cloud.Flavors', {
                     swap: values.swap,
                 },
                 success:  function(conn, response, options, eOpts) {
-                    CloudApp.util.Alert.msg('成功', '云主机类型已保存。');
+                    CloudApp.util.Alert.msg('信息', '云主机类型已保存。');
                     store.load();
                     win.close();
                 },

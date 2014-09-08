@@ -24,7 +24,7 @@ Ext.define('CloudApp.view.cloud.Volumes', {
             items: [
                 {
                     xtype: 'button',
-                    text: '新建',
+                    text: '创建',
                     itemId: 'add',
                     iconCls: 'add'
                 },

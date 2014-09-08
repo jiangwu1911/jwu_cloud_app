@@ -126,7 +126,7 @@ Ext.define('CloudApp.controller.security.Depts', {
                             method: 'DELETE',
                             headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
                             success: function(conn, response, options, eOpts) {
-                                CloudApp.util.Alert.msg('成功', '成功删除部门。');
+                                CloudApp.util.Alert.msg('信息', '成功删除部门。');
                                 store.load();
                                 var plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
                                 plist.getStore().load();
@@ -169,7 +169,7 @@ Ext.define('CloudApp.controller.security.Depts', {
                 },
                 success: function(conn, response, options, eOpts) {
                     Ext.get(formPanel.getEl()).unmask();
-                    CloudApp.util.Alert.msg('成功', '部门信息已保存。');
+                    CloudApp.util.Alert.msg('信息', '部门信息已保存。');
                     store.load();
                     var plist = Ext.ComponentQuery.query('deptsedit #parent_list')[0];
                     plist.getStore().load();

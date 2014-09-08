@@ -80,6 +80,14 @@ Ext.define('CloudApp.controller.Login', {
                     } else {
                         CloudApp.util.Util.showErrorMsg(conn.responseText);
                     }
+
+                    var stores = ['security.Depts', 'security.Roles', 'security.Users', 
+                                  'cloud.Flavors', 'cloud.Images', 'cloud.Servers', 'cloud.Volumes'];
+                    for (var i=0; i<stores.length; i++) {
+                        var s = Ext.getStore(stores[i]);
+                        CloudApp.util.Util.addToken(s);
+                        s.load();
+                    }
                 },
                 failure: function(conn, response, options, eOpts) {
                     if (conn.status == 0) {

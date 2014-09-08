@@ -64,7 +64,6 @@ Ext.define('CloudApp.controller.cloud.Servers', {
             "servercreate button#cancel": {
                 click: this.onButtonClickCancel
             },
-
         });
     },
 
@@ -77,15 +76,12 @@ Ext.define('CloudApp.controller.cloud.Servers', {
         }
 
         var imagesStore = Ext.getStore('cloud.Images');
-        CloudApp.util.Util.addToken(imagesStore);
         imagesStore.load();
 
         var flavorsStore = Ext.getStore('cloud.Flavors');
-        CloudApp.util.Util.addToken(flavorsStore);
         flavorsStore.load();
 
         var usersStore = Ext.getStore('security.Users');
-        CloudApp.util.Util.addToken(usersStore);
         usersStore.load();
 
         var task = { 
@@ -263,7 +259,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                             method: 'DELETE',
                             headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
                             success: function(conn, response, options, eOpts) {
-                                CloudApp.util.Alert.msg('成功', '正在执行删除云主机操作。');
+                                CloudApp.util.Alert.msg('信息', '正在执行删除云主机操作。');
                                 store.load();
                             },
                             failure: function(conn, response, options, eOpts) {
@@ -307,7 +303,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                                 action: action,
                             },
                             success: function(conn, response, options, eOpts) {
-                                CloudApp.util.Alert.msg('成功', '正在' + title + '云主机。');
+                                CloudApp.util.Alert.msg('信息', '正在' + title + '云主机。');
                                 store.load();
                             },
                             failure: function(conn, response, options, eOpts) {
@@ -351,7 +347,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                                 action: action,
                             },
                             success: function(conn, response, options, eOpts) {
-                                CloudApp.util.Alert.msg('成功', '正在' + title + '云主机。');
+                                CloudApp.util.Alert.msg('信息', '正在' + title + '云主机。');
                                 store.load();
                             },
                             failure: function(conn, response, options, eOpts) {
@@ -431,7 +427,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                     flavor_name: values.flavor,
                 },
                 success:  function(conn, response, options, eOpts) {
-                    CloudApp.util.Alert.msg('成功', '正在创建云主机。');
+                    CloudApp.util.Alert.msg('信息', '正在创建云主机。');
                     store.load();
                     win.close();
                 },
@@ -448,10 +444,6 @@ Ext.define('CloudApp.controller.cloud.Servers', {
     },
 
     onButtonClickEditSave: function(button, e, options) {
-        role = Ext.util.Cookies.get('user_role');
-        if (role != '系统管理员' && role != '部门管理员')
-            return;
-
         var win = button.up('window'),
         formPanel = win.down('form'),
         store = this.getServersList().getStore();
@@ -469,7 +461,7 @@ Ext.define('CloudApp.controller.cloud.Servers', {
                     owner: values.owner,
                 },
                 success:  function(conn, response, options, eOpts) {
-                    CloudApp.util.Alert.msg('成功', '正在保存云主机配置。');
+                    CloudApp.util.Alert.msg('信息', '正在保存云主机配置。');
                     store.load();
                     win.close();
                 },

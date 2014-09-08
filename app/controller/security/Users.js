@@ -48,24 +48,17 @@ Ext.define('CloudApp.controller.security.Users', {
             },
         });
 
-        if (!Ext.getStore('depts')) {
+        if (!Ext.getStore('security.Depts')) {
             Ext.create('CloudApp.store.security.Depts');
         }    
     },
 
     onRender: function(component, options) {
-        var serversStore = Ext.getStore('cloud.Servers');
-        CloudApp.util.Util.addToken(serversStore);
-        serversStore.load();
-
-        CloudApp.util.Util.addToken(component.getStore());
-        component.getStore().load();
     },
 
     onActivate: function(component, eOpts) {
         //每次显示时刷新，以便及时得到user的状态
         var serversStore = Ext.getStore('cloud.Servers');
-        CloudApp.util.Util.addToken(serversStore);
         serversStore.load();
 
         var store = component.down('#alluserslist').getStore();
@@ -119,7 +112,7 @@ Ext.define('CloudApp.controller.security.Users', {
                             method: 'DELETE',
                             headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
                             success: function(conn, response, options, eOpts) {
-                                CloudApp.util.Alert.msg('成功', '成功删除用户。');
+                                CloudApp.util.Alert.msg('信息', '成功删除用户。');
                                 store.load();
                             },
                             failure: function(conn, response, options, eOpts) {
@@ -177,7 +170,7 @@ Ext.define('CloudApp.controller.security.Users', {
                     role_id: values.role_id,
                 },
                 success:  function(conn, response, options, eOpts) {
-                    CloudApp.util.Alert.msg('成功', '用户已保存。');
+                    CloudApp.util.Alert.msg('信息', '用户已保存。');
                     store.load();
                     win.close();
                 },

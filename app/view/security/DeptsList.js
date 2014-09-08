@@ -37,7 +37,7 @@ Ext.define('CloudApp.view.security.DeptsList', {
                     xtype: 'button',
                     itemId: 'add',
                     iconCls: 'add',
-                    text: '新建'
+                    text: '创建'
                 },
                 {
                     xtype: 'button',
