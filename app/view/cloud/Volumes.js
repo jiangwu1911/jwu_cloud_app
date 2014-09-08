@@ -39,6 +39,18 @@ Ext.define('CloudApp.view.cloud.Volumes', {
                     text: '删除',
                     itemId: 'delete',
                     iconCls: 'delete'
+                },
+                {
+                    xtype: 'button',
+                    text: '挂载',
+                    itemId: 'attach',
+                    iconCls: 'volume_attach'
+                },
+                {
+                    xtype: 'button',
+                    text: '卸载',
+                    itemId: 'detach',
+                    iconCls: 'volume_detach'
                 }
             ]
         }

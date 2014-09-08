@@ -32,6 +32,8 @@ Ext.application({
         'Ext.util.Cookies',
         'CloudApp.util.Util',
         'CloudApp.store.security.Users',
+        'CloudApp.store.security.Depts',
+        'CloudApp.store.security.Roles',
         'CloudApp.store.cloud.Flavors',
         'CloudApp.store.cloud.Images',
         'CloudApp.store.cloud.Volumes',

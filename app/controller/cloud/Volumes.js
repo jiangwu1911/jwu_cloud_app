@@ -54,6 +54,12 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
             "volumecreate button#cancel": {
                 click: this.onButtonClickCancel
             },
+            "volumes button#attach": {
+                click: this.onButtonClickAttach
+            },
+            "volumes button#detach": {
+                click: this.onButtonClickDetach
+            },
         });
     },
 
@@ -63,6 +69,8 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
             Ext.ComponentQuery.query('volumes button#add')[0].hide();
             Ext.ComponentQuery.query('volumes button#edit')[0].hide();
             Ext.ComponentQuery.query('volumes button#delete')[0].hide();
+            Ext.ComponentQuery.query('volumes button#attach')[0].hide();
+            Ext.ComponentQuery.query('volumes button#detach')[0].hide();
         }
 
         var usersStore = Ext.getStore('security.Users');
@@ -72,7 +80,8 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
             run: function() {
                 component.getStore().each(function(r) {
                     //刷新volume的状态信息
-                    if (r.raw.status=='creating' || r.raw.status=='deleting') {
+                    if (r.raw.status=='creating' || r.raw.status=='deleting' 
+                     || r.raw.status=='attaching' || r.raw.status=='detaching') {
                         url = API_URL + '/volumes' + '/' + r.get('id');
                         Ext.Ajax.request({
                             url: url,
@@ -108,6 +117,31 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
     },
 
     onSelect: function(component, record, index, eOpts) {
+        if (!record) {
+            record = component.getSelectionModel().getSelection()[0];
+            if (!record)
+                return;
+            record = component.getStore().getById(record.get('id'));
+        }
+
+        var status = record.get('status');
+        var btn1 = Ext.ComponentQuery.query('volumes button#attach')[0];
+        var btn2 = Ext.ComponentQuery.query('volumes button#detach')[0];
+
+        switch (status) {
+            case 'error':
+            case 'building':
+                btn1.disable();
+                btn2.disable();
+                break;
+            case 'available':
+                btn1.enable();
+                btn2.disable();
+                break;
+            case 'in-use':
+                btn1.disable();
+                btn2.enable();
+        }
     },
 
     onButtonClickAdd: function (button, e, options) {
@@ -253,5 +287,45 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
 
     onButtonClickEditCancel: function(button, e, options) {
         button.up('window').close();
+    },
+
+    onButtonClickAttach: function(button, e, options) {
+
+    },
+
+    onButtonClickDetach: function(button, e, options) {
+        var grid = this.getVolumesList();
+        var record = grid.getSelectionModel().getSelection();
+        store = grid.getStore();
+
+        if (record[0]) {
+            data = grid.getStore().getById(record[0].get('id'));
+            Ext.Msg.show({
+                 title: '卸载',
+                 msg: '是否确定卸载云硬盘"' + data.get('name') + '"?',
+                 buttons: Ext.Msg.YESNO,
+                 icon: Ext.Msg.QUESTION,
+                 fn: function (buttonId){
+                    if (buttonId == 'yes'){
+                        url = API_URL + '/volumes' + '/' + data.get('id');
+                        Ext.Ajax.request({
+                            url: url,
+                            method: 'POST',
+                            headers: { 'X-Auth-Token': Ext.util.Cookies.get('user_token') },
+                            params: {
+                                action: 'detach',
+                            },
+                            success: function(conn, response, options, eOpts) {
+                                CloudApp.util.Alert.msg('信息', '正在卸载云硬盘。');
+                                store.load();
+                            },
+                            failure: function(conn, response, options, eOpts) {
+                                CloudApp.util.Util.showErrorMsg(conn.responseText);
+                            }
+                        });
+                    }
+                 }
+            });
+        }
     },
 });

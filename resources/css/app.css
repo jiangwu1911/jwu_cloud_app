@@ -137,6 +137,14 @@
   background-image:url('../icons/server.gif') !important;
 }
 
+.volume_attach {
+  background-image:url('../icons/volume_attach.png') !important;
+}
+
+.volume_detach {
+  background-image:url('../icons/volume_detach.png') !important;
+}
+
 .menu_admin {
   background-image:url('../icons/folder_user.png') !important;
 }
