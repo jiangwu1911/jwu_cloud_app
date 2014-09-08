@@ -70,7 +70,7 @@ Ext.define('CloudApp.view.cloud.VolumeEdit', {
                         },
                         {
                             xtype: 'combobox',
-                            fieldLabel: '分配给',
+                            fieldLabel: '属于',
                             name: 'owner',
                             displayField: 'name',
                             valueField: 'id',

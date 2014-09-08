@@ -52,7 +52,7 @@ Ext.define('CloudApp.view.cloud.ServersList', {
         {
             width: 100, 
             dataIndex: 'owner',
-            text: '分配给',
+            text: '属于',
             renderer: function(value, metaData, record ){
                 var usersStore = Ext.getStore('security.Users');
                 var user = usersStore.findRecord('id', value);

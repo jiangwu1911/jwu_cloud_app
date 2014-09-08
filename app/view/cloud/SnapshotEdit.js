@@ -1,9 +1,9 @@
-Ext.define('CloudApp.view.cloud.ServerEdit', {
+Ext.define('CloudApp.view.cloud.SnapshotEdit', {
     extend: 'Ext.window.Window',
-    alias: 'widget.serveredit',
+    alias: 'widget.snapshotedit',
 
-    height: 320,
-    width: 550,
+    height: 260,
+    width: 460,
     modal: true,
 
     requires: ['CloudApp.util.Util'],
@@ -12,7 +12,7 @@ Ext.define('CloudApp.view.cloud.ServerEdit', {
         align: 'stretch',
         type: 'vbox'
     },
-    title: '编辑云主机',
+    title: '编辑快照',
 
     items: [
         {
@@ -26,7 +26,7 @@ Ext.define('CloudApp.view.cloud.ServerEdit', {
                 {
                     xtype: 'fieldset',
                     flex: 2,
-                    title: '编辑云主机',
+                    title: '编辑快照',
                     defaults: {
                         afterLabelTextTpl: '',
                         anchor: '100%',
@@ -42,26 +42,15 @@ Ext.define('CloudApp.view.cloud.ServerEdit', {
                         },
                         {
                             afterLabelTextTpl: CloudApp.util.Util.required,
-                            fieldLabel: '主机名',
+                            fieldLabel: '快照名称',
                             maxLength: 100,
                             name: 'name',
                             itemId: 'name',
                         },
                         {
                             xtype: 'displayfield',
-                            fieldLabel: '镜像',
-                            name: 'image',
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: '配置',
-                            name: 'sysinfo',
-                            itemId: 'sysinfo',
-                        },
-                        {
-                            xtype: 'displayfield',
-                            fieldLabel: 'IP地址',
-                            name: 'ip',
+                            fieldLabel: '大小(Bytes)',
+                            name: 'size',
                         },
                         {
                             xtype: 'displayfield',
@@ -71,7 +60,7 @@ Ext.define('CloudApp.view.cloud.ServerEdit', {
                         {
                             xtype: 'displayfield',
                             fieldLabel: '状态',
-                            name: 'state',
+                            name: 'status',
                         },
                         {
                             xtype: 'displayfield',
@@ -91,7 +80,6 @@ Ext.define('CloudApp.view.cloud.ServerEdit', {
                             allowBlank: true,
                             itemId: 'owner',
                         },
-
                     ]
                 },
             ]

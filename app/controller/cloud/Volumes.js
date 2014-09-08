@@ -104,7 +104,6 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
                                 ret = CloudApp.util.Util.decodeJSON(conn.responseText);
                                 r.data.status = ret.volume.status;
                                 r.raw.status = ret.volume.status;
-                                console.log(ret.volume.attached_to);
                                 r.data.attached_to = ret.volume.attached_to;
                                 r.dirty = true;
                             },
@@ -292,7 +291,7 @@ Ext.define('CloudApp.controller.cloud.Volumes', {
                     owner: values.owner,
                 },
                 success:  function(conn, response, options, eOpts) {
-                    CloudApp.util.Alert.msg('信息', '正在保存云硬盘配置。');
+                    CloudApp.util.Alert.msg('信息', '正在保存云硬盘信息。');
                     store.load();
                     win.close();
                 },

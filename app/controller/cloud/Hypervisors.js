@@ -22,15 +22,19 @@ Ext.define('CloudApp.controller.cloud.Hypervisors', {
 
     init: function(application) {
         this.control({
+            "hypervisors": {
+                activate: this.onActivate,
+            },
             "hypervisors #hypervisorslist": {
                 render: this.onRender,
             },
         });
     },
 
-    onRender: function(component, options) {
-        CloudApp.util.Util.addToken(component.getStore());
-        component.getStore().load();
+    refresh: function() {
+        var grid = Ext.ComponentQuery.query('hypervisors #hypervisorslist')[0];
+        CloudApp.util.Util.addToken(grid.getStore());
+        grid.getStore().load();
 
         var vcpus_pie = Ext.ComponentQuery.query('hypervisors #vcpus_pie')[0];
         CloudApp.util.Util.addToken(vcpus_pie.getStore());
@@ -51,4 +55,12 @@ Ext.define('CloudApp.controller.cloud.Hypervisors', {
         var label2 = Ext.ComponentQuery.query('hypervisors #memory_pie_label')[0];
         var label3 = Ext.ComponentQuery.query('hypervisors #disk_pie_label')[0];
     },
+
+    onRender: function(component, options) {
+        this.refresh();
+    },
+
+    onActivate: function(component, eOpts) {
+        this.refresh();
+    },        
 });
