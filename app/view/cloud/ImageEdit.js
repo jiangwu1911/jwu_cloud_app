@@ -1,9 +1,9 @@
-Ext.define('CloudApp.view.cloud.VolumeCreate', {
+Ext.define('CloudApp.view.cloud.ImageEdit', {
     extend: 'Ext.window.Window',
-    alias: 'widget.volumecreate',
+    alias: 'widget.imageedit',
 
-    height: 150,
-    width: 400,
+    height: 240,
+    width: 460,
     modal: true,
 
     requires: ['CloudApp.util.Util'],
@@ -12,7 +12,7 @@ Ext.define('CloudApp.view.cloud.VolumeCreate', {
         align: 'stretch',
         type: 'vbox'
     },
-    title: '创建云硬盘',
+    title: '编辑镜像',
 
     items: [
         {
@@ -26,9 +26,9 @@ Ext.define('CloudApp.view.cloud.VolumeCreate', {
                 {
                     xtype: 'fieldset',
                     flex: 2,
-                    title: '创建云硬盘',
+                    title: '编辑镜像',
                     defaults: {
-                        afterLabelTextTpl: CloudApp.util.Util.required,
+                        afterLabelTextTpl: '',
                         anchor: '100%',
                         xtype: 'textfield',
                         allowBlank: false,
@@ -36,15 +36,37 @@ Ext.define('CloudApp.view.cloud.VolumeCreate', {
                     },
                     items: [
                         {
-                            fieldLabel: '云硬盘名称',
+                            xtype: 'hiddenfield',
+                            fieldLabel: 'Label',
+                            name: 'id',
+                        },
+                        {
+                            afterLabelTextTpl: CloudApp.util.Util.required,
+                            fieldLabel: '镜像名称',
                             maxLength: 100,
                             name: 'name',
                             itemId: 'name',
                         },
                         {
-                            xtype: 'numberfield',
-                            fieldLabel: '大小(GB)',
+                            xtype: 'displayfield',
+                            fieldLabel: '大小(Bytes)',
                             name: 'size',
+                        },
+                        {
+                            xtype: 'displayfield',
+                            fieldLabel: '创建于',
+                            name: 'created_at',
+                        },
+                        {
+                            xtype: 'displayfield',
+                            fieldLabel: '状态',
+                            name: 'status',
+                        },
+                        {
+                            xtype: 'displayfield',
+                            fieldLabel: '错误信息',
+                            name: 'fault',
+                            itemId: 'fault',
                         },
                     ]
                 },

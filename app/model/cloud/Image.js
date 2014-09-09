@@ -9,5 +9,6 @@ Ext.define('CloudApp.model.cloud.Image', {
         { name: 'status' },
         { name: 'size' },
         { name: 'fault' },
+        { name: 'created_at' },
     ]
 });
