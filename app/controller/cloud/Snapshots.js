@@ -187,7 +187,6 @@ Ext.define('CloudApp.controller.cloud.Snapshots', {
                 }
             });
         }
-
     },
 
     onButtonClickCancel: function(button, e, options) {

@@ -1,6 +1,6 @@
-Ext.define('CloudApp.view.cloud.VolumeCreate', {
+Ext.define('CloudApp.view.cloud.ImageCreate', {
     extend: 'Ext.window.Window',
-    alias: 'widget.volumecreate',
+    alias: 'widget.imagecreate',
 
     height: 150,
     width: 400,
@@ -12,7 +12,7 @@ Ext.define('CloudApp.view.cloud.VolumeCreate', {
         align: 'stretch',
         type: 'vbox'
     },
-    title: '创建云硬盘',
+    title: '创建镜像',
 
     items: [
         {
@@ -26,9 +26,9 @@ Ext.define('CloudApp.view.cloud.VolumeCreate', {
                 {
                     xtype: 'fieldset',
                     flex: 2,
-                    title: '创建云硬盘',
+                    title: '创建镜像',
                     defaults: {
-                        afterLabelTextTpl: '',
+                        afterLabelTextTpl: CloudApp.util.Util.required,
                         anchor: '100%',
                         xtype: 'textfield',
                         allowBlank: false,
@@ -36,16 +36,15 @@ Ext.define('CloudApp.view.cloud.VolumeCreate', {
                     },
                     items: [
                         {
-                            afterLabelTextTpl: CloudApp.util.Util.required,
-                            fieldLabel: '云硬盘名称',
+                            fieldLabel: '名称',
                             maxLength: 100,
                             name: 'name',
                             itemId: 'name',
                         },
                         {
-                            xtype: 'numberfield',
-                            fieldLabel: '大小(GB)',
-                            name: 'size',
+                            xtype: 'filefield',
+                            fieldLabel: '镜像文件',
+                            name: 'imagefile',
                         },
                     ]
                 },

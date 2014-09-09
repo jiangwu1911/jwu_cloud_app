@@ -7,6 +7,7 @@ Ext.define('CloudApp.model.cloud.Image', {
         { name: 'id' },
         { name: 'name' },
         { name: 'status' },
-        { name: 'OS-EXT-IMG-SIZE:size' },
+        { name: 'size' },
+        { name: 'fault' },
     ]
 });
