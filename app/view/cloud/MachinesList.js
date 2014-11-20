@@ -3,7 +3,7 @@ Ext.define('CloudApp.view.cloud.MachinesList', {
     alias: 'widget.machineslist',
 
     frame: true,
-    store: 'cloud.MachinesList',
+    store: 'cloud.Machines',
 
     columns: [
         {
@@ -18,7 +18,7 @@ Ext.define('CloudApp.view.cloud.MachinesList', {
             text: '主机状态'
         },
         {
-            width: 150,
+            width: 450,
             dataIndex: 'service',
             text: '服务'
         },

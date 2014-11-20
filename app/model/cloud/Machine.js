@@ -6,7 +6,6 @@ Ext.define('CloudApp.model.cloud.Machine', {
     fields: [
         { name: 'hostname' },
         { name: 'state' },
-        { name: 'status' },
-        { name: 'disabled_reason' },
+        { name: 'service' },
     ]
 });
