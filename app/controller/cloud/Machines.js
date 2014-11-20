@@ -25,7 +25,7 @@ Ext.define('CloudApp.controller.cloud.Machines', {
             "machines": {
                 activate: this.onActivate,
             },
-            "machines #machineslist": {
+            "machines machineslist": {
                 render: this.onRender,
                 itemclick: this.onClickMachine,
             },
@@ -33,13 +33,13 @@ Ext.define('CloudApp.controller.cloud.Machines', {
     },
 
     refresh: function() {
-        var grid = Ext.ComponentQuery.query('machines #machineslist')[0];
+        var grid = Ext.ComponentQuery.query('machines machineslist')[0];
         CloudApp.util.Util.addToken(grid.getStore());
         grid.getStore().load();
     },
 
     draw_cpu_chart: function(hostname) { 
-        var cpuchart = Ext.ComponentQuery.query('machines #cpuchart')[0];
+        var cpuchart = Ext.ComponentQuery.query('machines machinesmonitor #cpuchart')[0];
         CloudApp.util.Util.addToken(cpuchart.getStore());
         cpuchart.getStore().load({
             params: {
