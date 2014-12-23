@@ -4,7 +4,7 @@
     Sencha Cmd when upgrading.
 */
 
-var API_URL = 'http://192.168.206.129:8080'
+var API_URL = ''
 
 Ext.application({
     name: 'CloudApp',
@@ -55,6 +55,7 @@ Ext.application({
         'cloud.Servers',
         'cloud.Hypervisors',
         'cloud.HypervisorStatsPie',
+        'cloud.Logs',
     ],
 
     stores: [

@@ -166,6 +166,9 @@
 .menu_hypervisor {
   background-image:url('../icons/vcard.png') !important;
 }
+.menu_log {
+  background-image:url('../icons/vcard.png') !important;
+}
 .menu_storage {
   background-image:url('../icons/vcard.png') !important;
 }
