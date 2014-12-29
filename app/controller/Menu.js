@@ -27,7 +27,7 @@ Ext.define('CloudApp.controller.Menu', {
                      {id:2, text:'部门', iconCls:'menu_dept', parent_id:1, className:'depts'},
                      {id:3, text:'用户', iconCls:'menu_user', parent_id:1, className:'users'},
                      {id:11, text:'硬件资源管理', iconCls:'menu_hardware', parent_id:null, className:null},
-                     {id:12, text:'使用情况', iconCls:'menu_hypervisor', parent_id:11, className:'hypervisors'},
+                     {id:12, text:'计算资源', iconCls:'menu_hypervisor', parent_id:11, className:'hypervisors'},
                      {id:13, text:'日志', iconCls:'menu_log', parent_id:11, className:null},
                      {id:21, text:'云平台管理', iconCls:'menu_openstack', parent_id:null, className:null},
                      {id:22, text:'云主机类型', iconCls:'menu_flavor', parent_id:21, className:'flavors'},

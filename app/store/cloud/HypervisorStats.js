@@ -8,7 +8,7 @@ Ext.define('CloudApp.store.cloud.HypervisorStats', {
     autoLoad: false,
     proxy: {
         type: 'ajax',
-        url: API_URL + '/hosts',
+        url: API_URL + '/hypervisors',
         extraParams: { action: 'stats' },
         reader: {
             type: 'json',
