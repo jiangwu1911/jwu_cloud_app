@@ -14,8 +14,8 @@ Ext.define('CloudApp.view.cloud.Hypervisors', {
         {
             xtype: 'hypervisorslist',
             itemId: 'hypervisorslist',
-            title: '服务器列表',
-            emptyText: '没有服务器',
+            title: '计算节点列表',
+            emptyText: '没有计算节点',
             flex: 1,
             hideGroup: true,
         },

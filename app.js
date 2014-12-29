@@ -41,6 +41,7 @@ Ext.application({
         'CloudApp.store.cloud.HypervisorsList',
         'CloudApp.store.cloud.HypervisorStats',
         'CloudApp.store.cloud.Snapshots',
+        'CloudApp.store.cloud.Machines',
     ],
 
     extend: 'CloudApp.Application',
@@ -55,6 +56,7 @@ Ext.application({
         'cloud.Servers',
         'cloud.Hypervisors',
         'cloud.HypervisorStatsPie',
+        'cloud.Machines',
         'cloud.Logs',
     ],
 
@@ -70,6 +72,7 @@ Ext.application({
         'cloud.Servers',
         'cloud.HypervisorsList',
         'cloud.HypervisorStats',
+        'cloud.Machines',
     ],
  
     controllers: [
@@ -84,6 +87,7 @@ Ext.application({
         'cloud.Volumes',
         'cloud.Servers',
         'cloud.Hypervisors',
+        'cloud.Machines',
     ],
     
     splashscreen: {},
