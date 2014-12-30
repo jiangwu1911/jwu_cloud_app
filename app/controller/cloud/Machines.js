@@ -27,6 +27,7 @@ Ext.define('CloudApp.controller.cloud.Machines', {
             },
             "machines #machineslist": {
                 render: this.onRender,
+                itemclick: this.onClickMachine,
             },
         });
     },
@@ -35,14 +36,20 @@ Ext.define('CloudApp.controller.cloud.Machines', {
         var grid = Ext.ComponentQuery.query('machines #machineslist')[0];
         CloudApp.util.Util.addToken(grid.getStore());
         grid.getStore().load();
+    },
 
+    draw_cpu_chart: function(hostname) { 
         var cpuchart = Ext.ComponentQuery.query('machines #cpuchart')[0];
         CloudApp.util.Util.addToken(cpuchart.getStore());
         cpuchart.getStore().load({
             params: {
-                hostname: 'logclient'
+                hostname: hostname
             }
         });
+    },
+
+    onClickMachine: function (panel, record) {
+        this.draw_cpu_chart(record.get('hostname'));
     },
 
     onRender: function(component, options) {

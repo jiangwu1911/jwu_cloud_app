@@ -27,6 +27,33 @@ Ext.define('CloudApp.view.cloud.Machines', {
         dock: 'right',
         items: [
             {
+                xtype: 'toolbar',
+                flex: 1,
+                dock: 'top',
+                items: [
+                    {
+                        xtype: 'button',
+                        text: '30分钟',
+                        itemId: 'view_30m',
+                    },
+                    {
+                        xtype: 'button',
+                        text: '6小时',
+                        itemId: 'view_6h',
+                    },
+                    {
+                        xtype: 'button',
+                        text: '1天',
+                        itemId: 'view_1d',
+                    },
+                    {
+                        xtype: 'button',
+                        text: '1周',
+                        itemId: 'view_1w',
+                    },
+                ]
+            },
+            {
                 xtype: 'displayfield',
                 itemId: 'cpuchart_label',
                 value: 'CPU负载',
