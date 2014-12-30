@@ -35,6 +35,14 @@ Ext.define('CloudApp.controller.cloud.Machines', {
         var grid = Ext.ComponentQuery.query('machines #machineslist')[0];
         CloudApp.util.Util.addToken(grid.getStore());
         grid.getStore().load();
+
+        var cpuchart = Ext.ComponentQuery.query('machines #cpuchart')[0];
+        CloudApp.util.Util.addToken(cpuchart.getStore());
+        cpuchart.getStore().load({
+            params: {
+                hostname: 'logclient'
+            }
+        });
     },
 
     onRender: function(component, options) {

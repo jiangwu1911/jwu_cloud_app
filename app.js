@@ -29,6 +29,8 @@ Ext.application({
         'Ext.chart.axis.Numeric',
         'Ext.chart.axis.Category',
         'Ext.form.CheckboxGroup',
+        'Ext.chart.axis.Time',
+        'Ext.chart.series.Line',
         'Ext.util.Cookies',
         'CloudApp.util.Util',
         'CloudApp.store.security.Users',
@@ -42,6 +44,7 @@ Ext.application({
         'CloudApp.store.cloud.HypervisorStats',
         'CloudApp.store.cloud.Snapshots',
         'CloudApp.store.cloud.Machines',
+        'CloudApp.store.monitor.CpuStats',
     ],
 
     extend: 'CloudApp.Application',
@@ -58,6 +61,7 @@ Ext.application({
         'cloud.HypervisorStatsPie',
         'cloud.Machines',
         'cloud.Logs',
+        'monitor.CpuChart',
     ],
 
     stores: [
@@ -73,6 +77,7 @@ Ext.application({
         'cloud.HypervisorsList',
         'cloud.HypervisorStats',
         'cloud.Machines',
+        'monitor.CpuStats',
     ],
  
     controllers: [
