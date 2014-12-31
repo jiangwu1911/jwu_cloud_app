@@ -7,13 +7,13 @@ Ext.define('CloudApp.view.cloud.MachinesList', {
 
     columns: [
         {
-            width: 200,
+            width: 230,
             dataIndex: 'hostname',
             flex: 1,
             text: '主机名'
         },
         {
-            width: 100,
+            width: 70,
             dataIndex: 'state',
             text: '主机状态'
         },

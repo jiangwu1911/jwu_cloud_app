@@ -5,5 +5,4 @@ Ext.define('CloudApp.view.monitor.CpuChart', {
     store: 'monitor.CpuStats',
     width: 400,
     height: 300,
-    renderTo: Ext.getBody(),
 });

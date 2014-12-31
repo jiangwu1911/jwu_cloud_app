@@ -2,8 +2,13 @@ Ext.define('CloudApp.view.cloud.MachinesMonitor', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.machinesmonitor',
 
+    requires: [
+        'CloudApp.view.monitor.CpuChart',
+    ],
+
     layout: {
-        type: 'fit'
+        type: 'vbox',
+        align: 'top',
     },
     
     dockedItems: [{
@@ -14,22 +19,22 @@ Ext.define('CloudApp.view.cloud.MachinesMonitor', {
             {
                 xtype: 'button',
                 text: '30分钟',
-                itemId: 'view_30m',
+                itemId: 'btn_30m',
             },
             {
                 xtype: 'button',
                 text: '6小时',
-                itemId: 'view_6h',
+                itemId: 'btn_6h',
             },
             {
                 xtype: 'button',
                 text: '1天',
-                itemId: 'view_1d',
+                itemId: 'btn_1d',
             },
             {
                 xtype: 'button',
                 text: '1周',
-                itemId: 'view_1w',
+                itemId: 'btn_1w',
             },
         ]
     }],
@@ -43,8 +48,8 @@ Ext.define('CloudApp.view.cloud.MachinesMonitor', {
         {
             xtype: 'cpuchart',
             itemId: 'cpuchart',
-            width: 260,
-            height: 180,
+            width: 300,
+            height: 160,
             store: 'monitor.CpuStats',
             theme: 'Green',
             axes: [
@@ -58,7 +63,7 @@ Ext.define('CloudApp.view.cloud.MachinesMonitor', {
                 { type: 'Time',
                   position: 'bottom',
                   fields: ['date'],
-                  dateFormat: 'H:i',
+                  dateFormat: 'm-d H:i',
                   fromDate: new Date()-1800000,
                   toDate: new Date(),
                 }

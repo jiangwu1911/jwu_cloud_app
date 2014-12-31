@@ -15,11 +15,11 @@ Ext.define('CloudApp.view.cloud.Machines', {
     items: [
         {
             xtype: 'machineslist',
-            flex: 1
+            flex: 3
         },
         {
             xtype: 'machinesmonitor',
-            flex: 1
+            flex: 2
         }
     ]
 });
