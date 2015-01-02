@@ -51,7 +51,7 @@ Ext.define('CloudApp.view.cloud.MachinesMonitor', {
             width: 300,
             height: 160,
             store: 'monitor.CpuStats',
-            theme: 'Green',
+            theme: 'Blue',
             axes: [
                 { type: 'Numeric',
                   position: 'left',
@@ -73,7 +73,7 @@ Ext.define('CloudApp.view.cloud.MachinesMonitor', {
                   xField: 'date',
                   yField: 'value',
                   markerConfig: {
-                    type: 'cross',
+                    type: 'circle',
                     size: 0,
                     radius: 0,
                     'stroke-width': 0

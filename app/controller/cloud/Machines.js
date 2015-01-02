@@ -70,22 +70,22 @@ Ext.define('CloudApp.controller.cloud.Machines', {
         
         if (time_range == '30分钟') {
             from_time = to_time - (30 * 60 * 1000);         //缺省30分钟
-            interval = 60 * 1000;                           //缺省间隔1分钟
+            interval = 10 * 1000;                           //缺省间隔10秒
             time_axe.dateFormat = 'H:i';
         }
         if (time_range == '6小时') {
             from_time = to_time - (6 * 60 * 60 * 1000)  
-            interval = 10 * 60 * 1000;
+            interval = 120 * 1000;
             time_axe.dateFormat = 'H:i';
         }
         if (time_range == '1天') {
             from_time = to_time - (24 * 60 * 60 * 1000)  
-            interval = 60 * 60 * 1000;
+            interval = 10 * 60 * 1000;
             time_axe.dateFormat = 'Y-m-d H:i';
         }
         if (time_range == '1周') {
             from_time = to_time - (7 * 24 * 60 * 60 * 1000)  
-            interval = 6 * 60 * 60 * 1000;
+            interval = 60 * 60 * 1000;
             time_axe.dateFormat = 'Y-m-d H:i';
         }
         time_axe.fromDate = from_time;
